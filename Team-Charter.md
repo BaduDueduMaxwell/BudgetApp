@@ -1,17 +1,8 @@
-# [Project] Team Charter
+# [BudgetApp] Team Charter
 
-> **Instructions**
->
-> A team charter helps create a shared understanding of the team's goals, processes, and expectations.
->
-> Instructions:
->
-> 1. Make a copy of this document
-> 2. Schedule a time for the team to meet to fill out this charter
-> 3. Before you meet, replace the [highlighted] parts of the document with your team information
-> 4. In the meeting, fill out each of the sections below with the information about your team
->
-> After you've filled out the sections, you can delete these instructions.
+This document houses the collaborative efforts of our development team in creating an innovative and user-friendly budgeting web application. 
+Our goal is to empower individuals to take control of their finances by providing a comprehensive solution for budgeting, expense tracking, and managing financial goals.
+
 
 ## Goal
 
@@ -19,9 +10,9 @@
 
 ## Project Information
 
-- Project Proposal: [link]
-- Repository: [link]
-- Planning documents: [links]
+- Project Proposal: [Link]
+- Repository: [Link]
+- Planning Document: [Link]
 
 ## Processes
 
