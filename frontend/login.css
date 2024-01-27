@@ -5,6 +5,7 @@
   --fw-normal: 400;
   --fw-bold: 600;
 
+  --fs-300: 0.727rem;
   --fs-400: 0.9275rem;
   --fs-500: 1.25rem;
   --fs-600: 1.625rem;
@@ -76,10 +77,10 @@ input::placeholder {
 .forgot__password {
   position: absolute;
   color: var(--clr-white);
-  top: 40%;
+  top: 43%;
   right: 10%;
   padding-top: 2px;
-  font-size: var(--fs-400);
+  font-size: var(--fs-300);
 }
 
 .login__btn {
@@ -107,4 +108,3 @@ a {
   display: flex;
   flex-direction: column;
 }
-
