@@ -17,12 +17,12 @@ Write a one-sentence summary of each task completed. Included a link to the arti
 task that was completed. You can link to a github commit, a figma file, a google doc, a youtube video, or the most
 relevant url for the task.
 
-| Who | Link(s) | Task Description |
+| Who | Link(s)  | Task Description |
 | ----- | --------- | ------------------ |
-|Maxwell Duedu     | https://github.com/BaduDueduMaxwell/BudgetApp/tree/kode        |  Built the front-end for the log in and sign up page                |
-| Keklem Lawrence| https://shorturl.at/hJO67 | Disigned sign up and intro page on figma |
+|Maxwell Duedu    | https://shorturl.at/nzBJU |  Built the front-end for the log in and sign up page                |
+| Keklem Lawrence | https://shorturl.at/hJO67 | Disigned sign up and intro page on figma |
 |Emmanuel Adzi-Tay| https://shorturl.at/hJO67 | Designed user dashboard page on figma
-|James Anokye| https://shorturl.at/hJO67 | Designed the log in page on figma
+|James Anokye     | https://shorturl.at/hJO67 | Designed the log in page on figma
 
 ## What challenges did your team face?
 
