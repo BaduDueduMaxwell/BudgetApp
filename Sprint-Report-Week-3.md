@@ -41,6 +41,6 @@ What tasks will your team complete? What features will your team build?
 * [Keklem Yevudza]  Work on the UI design for the profile page and frontend for the dashboards
 * [Adzi-Tay Emmanuel] Work on the backen for the dashboard for the user credential using flask and SQLAlchmy
 * [Maxwell Duedu] Work on front end for the homepage
-*[ James Anokye] Work  on the backend for the dashboard page for the user using flask and SQLAlchemy
+* [James Anokye] Work  on the backend for the dashboard page for the user using flask and SQLAlchemy
 
 ## Any other notes or observations from this week?
