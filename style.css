@@ -17,14 +17,14 @@ nav {
     bottom: 0;
     height: 100%;
     left: 0;
-
+    margin-top: 20px;
 }
 
 .logo {
     text-align: center;
     display: flex;
     justify-content: center;
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
 }
 
 .logo img{
@@ -85,10 +85,10 @@ a {
 .expenses{
     margin: 10px 10px 10px 250px;
     border-radius: 10px;
-    height: 100px;
+    height: 100vh;
     background-color: #fff;
 }
 .title{
-    padding: 70px 0 0 100px;
-    font-size: 20px;
+    padding: 40px 0 0 100px;
+    font-size: 26px;
 }
