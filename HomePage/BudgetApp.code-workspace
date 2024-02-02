@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"name": "BudgetApp",
+			"path": ".."
+		},
+		{
+			"name": "HomePage",
+			"path": "../../../HomePage"
+		}
+	],
+	"settings": {}
+}
