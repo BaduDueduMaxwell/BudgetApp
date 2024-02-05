@@ -12,7 +12,7 @@
   --fs-800: 2rem;
   --fs-900: 2.5rem;
 
-  --clr-violet: #14245a;
+  --clr-violet: hsl(273.6,100%,50%);
   --clr-black: hsl(240, 96%, 1%);
   --clr-white: hsl(220, 20%, 98%);
   --clr-sea-blue: hsl(216, 75%, 72%);
@@ -119,8 +119,4 @@ a {
 
 a:visited {
   color: var(--clr-white);
-}
-
-a:hover {
-  color: var(--clr-sea-blue);
 }
