@@ -16,9 +16,9 @@
                         <div class="user-profile">
                             <img src="user-dp.jpg" alt=""/>
                             <span class="nav-item">
-                            Name<br>
+                            {{ first_name }}<br>
                             </span>
-                            <span class="email">name@example.com</span>
+                            <span class="email">{{ email }}</span>
                         </div>
                     </a>
                 </li>
@@ -104,22 +104,23 @@
                     <div>
                         <h6>Budget</h6>
                     </div>
-                    <div>
-    
+                    <div class="progress-bar">
+                        {% for category in budget %}
+                            <div class="category-{{ loop.index }}" style="width: {{ category.percentage }}%">{{ category.name }} ({{ category.percentage }}%)</div>
+                        {% endfor %}
                     </div>
                     <a>
-                        <p>View More</p>
+                        <p class="view_more">View More</p>
                     </a>
                 </div>
                 <div>
                     <div>
                         <h6>Expenses</h6>
                     </div>
-                    <div>
-    
-                    </div>
-                    <div>
-    
+                    <div class="progress-bar">
+                        {% for category in expenses %}
+                            <div class="category-{{ loop.index }}" style="width: {{ category.percentage }}%">{{ category.name }} ({{ category.percentage }}%)</div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
