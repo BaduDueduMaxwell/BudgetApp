@@ -13,7 +13,7 @@ cursor.execute('''
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 User_First_Name TEXT NOT NULL,
                 User_Last_Name TEXT NOT NULL,
-                User_Email TEXT NOT NULL,
+                User_Email TEXT  UNIQUE NOT NULL,
                 User_Password TEXT NOT NULL
                 )''')
 connect_db.commit()
@@ -25,7 +25,7 @@ cursor.execute('''
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 SOURCE TEXT NOT NULL,
                 VALUE INTEGER NOT NULL,
-                DATE TEXT NOT NULL,
+                MONTH INTEGER NOT NULL,
                 User_id INTEGER NOT NULL,
                 FOREIGN KEY (User_id) REFERENCES User (id)
                 )''')
@@ -39,7 +39,7 @@ cursor.execute('''
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 DESCRIPTION TEXT NOT NULL,
                 VALUE INTEGER NOT NULL,
-                DATE TEXT NOT NULL,
+                MONTH INTEGER NOT NULL,
                 User_id INTEGER NOT NULL,
                 FOREIGN KEY (User_id) REFERENCES User (id)
                 )''')

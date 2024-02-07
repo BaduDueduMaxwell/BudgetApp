@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Budget App | Expense</title>
+    <title>Budget App | Income</title>
     <link rel="stylesheet" href="expense.css" />
   </head>
   <body>
@@ -28,7 +28,7 @@
         </div>
       </nav>
       <div class="item" id="add__section">
-        <h1>Expenses</h1>
+        <h1>Income</h1>
         <form method="get" action="{{ url_for('index') }}">
                 <label for="month">Filter by Month:</label>
                 <select id="month" name="month">
@@ -49,20 +49,20 @@
                 <button type="submit">Apply Filter</button>
             </form>
             <div>
-                {% if expenses %}
+                {% if income %}
                     <ul>
-                        {% for expense in expenses %}
-                            <li>{{ expense.item }} - {{ expense.price }} - {{ expense.date }}</li>
+                        {% for income in income_list %}
+                            <li>{{ income.revenue }} - {{ income.price }}</li>
                         {% endfor %}
                     </ul>
                 {% else %}
-                    <p  class="no_input">No Expenses</p>
+                    <p class="no_input">No Income Made</p>
                 {% endif %}
             </div>
         <div class="add__flex">
             <a href="#" id="showForm">
               <img src="images/plus.png" alt="add expenses" class="add__task" />
-              <p>Add Expense</p>
+              <p>Add Income</p>
             </a>
         </div>
       </div>
@@ -70,14 +70,14 @@
     <div id="myModal" class="modal">
       <div class="modal-content">
         <span class="close" id="closeForm">&times;</span>
-        <form method="post" action="/add_expenses">
-          <label for="expenseItem">Expense Item:</label>
-          <input type="text" id="expenseItem" name="expenseItem" required>
+        <form method="post" action="/add_income">
+          <label for="incomeItem">Income Description:</label>
+          <input type="text" id="incomeItem" name="incomeItem" placeholder="source of the income" required>
           
-          <label for="expenseAmount">Expense Amount:</label>
-          <input type="number" id="expenseAmount" name="expenseAmount" required>
+          <label for="incomeAmount">Income Amount:</label>
+          <input type="number" id="incomeAmount" name="incomeAmount" required>
           
-          <button type="submit">Add Expense</button>
+          <button type="submit">Add Income</button>
         </form>
       </div>
     </div>
