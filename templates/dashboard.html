@@ -1,12 +1,12 @@
+
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Budget App | Dashboard</title>
-        <link rel="stylesheet" href="dashboard_style.css">
-        <link rel="stylesheet" href="expenses_style.css">
-        <link rel="stylesheet" href="static/css/styles.css">
+        <link rel="stylesheet" href="static/css/dashboard_style.css">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     </head>
     <body>
         <nav class="nav-bar">
@@ -30,7 +30,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/expense">
+                    <a href="#">
                         <span class="nav-item menu">
                             Expenses
                         </span>
@@ -65,7 +65,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="applogo">
+                    <a href="/dashboard" class="applogo">
                         <span class="nav-item">
                             BudgetApp
                         </span>
@@ -77,50 +77,87 @@
             <div class="title">
                 <h3>Dashboard</h3>
             </div>
-            <div>
-                <h4>Hi, {{ name }}</h4>
-                <p>{{ motivation }}</p>
+            <div class="dash intr">
+                <h4>Hi, Emmanuel</h4>
+                <p>If you save you save you save you save</p>
             </div>
-            <div>
-                <div>
+            <div class="dash cat">
+                <div class="dash income">
                     <h6>Total Income</h6>
-                    <p>{{ Total_Income}}</p>
+                    {% if Total_Income %}
+                        <p>{{ Total_Income}}</p>
+                    {% else %}
+                        <p>$0</p>
+                    {% endif %}
                 </div>
-                <div>
+                <div class="dash income">
                     <h6>Total Expenses</h6>
-                    <p>{{ Total_Expenses }}</p>
+                    {% if Total_Expenses %}
+                        <p>{{ Total_Expenses}}</p>
+                    {% else %}
+                        <p>$0</p>
+                    {% endif %}
                 </div>
-                <div>
+                <div class="dash income">
                     <div>
                         <h6>Savings</h6>
-                        <p>{{ Percentage_Saving }}</p>
+                        {% if Percentage_Savings %}
+                            <span>{{ Percentage_Savings }}</span>
+                        {% else %}
+                            <span>--%</span>
+                        {% endif %}
                     </div>
-                    <p>{{ Savings }}</p>
+                    {% if Savings %}
+                        <p>{{ Savings }}</p>
+                    {% else %}
+                        <p>$0</p>
+                    {% endif %}
                 </div>
             </div>
             <div>
                 <h4>Details</h4>
-                <div>
+                <div class="dash budget b">
                     <div>
                         <h6>Budget</h6>
                     </div>
-                    <div class="progress-bar">
-                        {% for category in budget %}
-                            <div class="category-{{ loop.index }}" style="width: {{ category.percentage }}%">{{ category.name }} ({{ category.percentage }}%)</div>
-                        {% endfor %}
+                    <div class="w3-container w3-blue w3-round" style="width:100%">25%</div>
+                    <div class="expenses-cat">
+                        <ul class="expenses-list">
+                            <div>
+                                <li>
+                                    categories
+                                </li>
+                            </div>
+                            <div>
+                                <li>
+                                    categories
+                                </li>
+                            </div>
+                            <div>
+                                <li>
+                                    categories
+                                </li>
+                            </div>
+                            <div>
+                                <li>
+                                    categories
+                                </li>
+                            </div>
+                        </ul>
                     </div>
-                    <a>
+                    <a href="" class="view_more a">
                         <p class="view_more">View More</p>
                     </a>
                 </div>
-                <div>
+                <div class="dash budget">
                     <div>
                         <h6>Expenses</h6>
                     </div>
-                    <div class="progress-bar">
-                        {% for category in expenses %}
-                            <div class="category-{{ loop.index }}" style="width: {{ category.percentage }}%">{{ category.name }} ({{ category.percentage }}%)</div>
-                        {% endfor %}
+                    <div class="w3-container w3-blue w3-round" style="width:100%">
+                        25%
+                    </div>
+                    <div class="w3-container w3-blue w3-round" style="width:100%">
+                        25%
                     </div>
                 </div>
             </div>

@@ -83,9 +83,9 @@ def add_expense(id):
     cursor.executemany('INSERT INTO Expense (DESCRIPTION, VALUE, MONTH, User_id) VALUES (?, ?, ?, ?)', (expense_details,))
     db_connection.commit()
     return render_template("expenses.html")
-
-@app.post("/expenses/<int:id>")
-def add_expense(id):
+'''
+@app.post("/income/<int:id>")
+def add_income(id):
     income = request.form["incomeItem"]
     amount = request.form["incomeAmount"]
     Date = str(datetime.datetime.now()).split(" ")[0]
@@ -95,7 +95,7 @@ def add_expense(id):
     cursor = db_connection.cursor()
     cursor.executemany('INSERT INTO Income (DESCRIPTION, VALUE, MONTH, User_id) VALUES (?, ?, ?, ?)', (income_details,))
     db_connection.commit()
-    return render_template("income.html")
+    return render_template("income.html")'''
 
 
 @app.get("/income")
