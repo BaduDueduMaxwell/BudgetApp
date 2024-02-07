@@ -4,31 +4,71 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Budget App | Expense</title>
-    <link rel="stylesheet" href="expense.css" />
+    <link rel="stylesheet" href="expense_style.css" />
   </head>
   <body>
     <div class="container">
-      <nav class="item container__flex" id="navbar">
-        <div>
-          <ul>
-            <li><input type="file" id="profile" /></li>
-            <li id="name">UserName</li>
-            <li id="email">username@gmail.com</li>
-          </ul>
+      <nav class="nav-bar">
+            <ul>
+                <li>
+                    <a href="#" class="logo">
+                        <div class="user-profile">
+                            <img src="user-dp.jpg" alt=""/>
+                            <span class="nav-item">
+                            {{ first_name }}<br>
+                            </span>
+                            <span class="email">{{ email }}</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="nav-item menu">
+                            Dashboard
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="nav-item menu">
+                            Expenses
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="nav-item menu">
+                            Income
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="nav-item menu">
+                            Summary
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="nav-item menu">
+                            Settings
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="nav-item menu">
+                            Logout
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+      <div class="white" id="add__section">
+        <div class="title">
+            <h3>Expenses</h3>
         </div>
-        <div class="column">
-          <ul>
-            <li><a href="">Dashboard</a></li>
-            <li><a href="">Expenses</a></li>
-            <li><a href="">History</a></li>
-            <li><a href="">Settings</a></li>
-            <li><a href="">Logout</a></li>
-            <li class="logo">Budg€tApp</li>
-          </ul>
-        </div>
-      </nav>
-      <div class="item" id="add__section">
-        <h1>Expenses</h1>
         <form method="get" action="{{ url_for('index') }}">
                 <label for="month">Filter by Month:</label>
                 <select id="month" name="month">
@@ -56,13 +96,13 @@
                         {% endfor %}
                     </ul>
                 {% else %}
-                    <p>No Expenses</p>
+                    <p  class="no_input">No Expenses</p>
                 {% endif %}
             </div>
         <div class="add__flex">
             <a href="#" id="showForm">
-              <img src="images/plus.png" alt="add expenses" class="add__task" />
-              <p>Add item</p>
+              <!-- <img src="images/plus.png" alt="add expenses" class="add__task" /> -->
+              <p class="add_item">Add Expense</p>
             </a>
         </div>
       </div>
@@ -81,29 +121,6 @@
         </form>
       </div>
     </div>
-
-    <script>
-      var modal = document.getElementById("myModal");
-    
-      var btn = document.getElementById("showForm");
-    
-      var span = document.getElementById("closeForm");
-    
-      btn.onclick = function () {
-        modal.style.display = "block";
-      };
-    
-      span.onclick = function () {
-        modal.style.display = "none";
-      };
-    
-      window.onclick = function (event) {
-        if (event.target == modal) {
-          modal.style.display = "none";
-        }
-      };
-    </script>
-    
   </body>
 </html>
     
