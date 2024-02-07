@@ -5,8 +5,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Budget App | Dashboard</title>
         <link rel="stylesheet" href="dashboard_style.css">
-        <link rel="stylesheet" href="expenses_style.css">
+        <link rel="stylesheet" href="style.css">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     </head>
     <body>
         <nav class="nav-bar">
@@ -77,50 +78,71 @@
             <div class="title">
                 <h3>Dashboard</h3>
             </div>
-            <div>
-                <h4>Hi, {{ name }}</h4>
-                <p>{{ motivation }}</p>
+            <div class="dash intr">
+                <h4>Hi, Emmanuel</h4>
+                <p>If you save you save you save you save</p>
             </div>
-            <div>
-                <div>
+            <div class="dash cat">
+                <div class="dash income">
                     <h6>Total Income</h6>
-                    <p>{{ Total_Income}}</p>
+                    <p>$300</p>
                 </div>
-                <div>
+                <div class="dash income">
                     <h6>Total Expenses</h6>
-                    <p>{{ Total_Expenses }}</p>
+                    <p>$120</p>
                 </div>
-                <div>
+                <div class="dash income">
                     <div>
                         <h6>Savings</h6>
-                        <p>{{ Percentage_Saving }}</p>
-                    </div>
-                    <p>{{ Savings }}</p>
+                        <span>20%</span>
+                </div>
+                <p>$800</p>
                 </div>
             </div>
             <div>
                 <h4>Details</h4>
-                <div>
+                <div class="dash budget b">
                     <div>
                         <h6>Budget</h6>
                     </div>
-                    <div class="progress-bar">
-                        {% for category in budget %}
-                            <div class="category-{{ loop.index }}" style="width: {{ category.percentage }}%">{{ category.name }} ({{ category.percentage }}%)</div>
-                        {% endfor %}
+                    <div class="w3-container w3-blue w3-round" style="width:100%">25%</div>
+                    <div class="expenses-cat">
+                        <ul class="expenses-list">
+                            <div>
+                                <li>
+                                    categories
+                                </li>
+                            </div>
+                            <div>
+                                <li>
+                                    categories
+                                </li>
+                            </div>
+                            <div>
+                                <li>
+                                    categories
+                                </li>
+                            </div>
+                            <div>
+                                <li>
+                                    categories
+                                </li>
+                            </div>
+                        </ul>
                     </div>
-                    <a>
+                    <a href="" class="view_more a">
                         <p class="view_more">View More</p>
                     </a>
                 </div>
-                <div>
+                <div class="dash budget">
                     <div>
                         <h6>Expenses</h6>
                     </div>
-                    <div class="progress-bar">
-                        {% for category in expenses %}
-                            <div class="category-{{ loop.index }}" style="width: {{ category.percentage }}%">{{ category.name }} ({{ category.percentage }}%)</div>
-                        {% endfor %}
+                    <div class="w3-container w3-blue w3-round" style="width:100%">
+                        25%
+                    </div>
+                    <div class="w3-container w3-blue w3-round" style="width:100%">
+                        25%
                     </div>
                 </div>
             </div>

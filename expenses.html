@@ -1,82 +1,35 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Budget App</title>
-        <link rel="stylesheet" href="expenses_style.css">
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
-    </head>
-    <body>
-        <nav class="nav-bar">
-            <ul>
-                <li>
-                    <a href="#" class="logo">
-                        <div class="user-profile">
-                            <img src="user-dp.jpg" alt=""/>
-                            <span class="nav-item">
-                            Name<br>
-                            </span>
-                            <span class="email">name@example.com</span>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <span class="nav-item menu">
-                            Dashboard
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <span class="nav-item menu">
-                            Expenses
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <span class="nav-item menu">
-                            Income
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <span class="nav-item menu">
-                            Summary
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <span class="nav-item menu">
-                            Settings
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <span class="nav-item menu">
-                            Logout
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="applogo">
-                        <span class="nav-item">
-                            BudgetApp
-                        </span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-        <section class="expenses">
-            <div class="title">
-                <h3>Expenses</h3>
-            </div>
-            <form method="get" action="{{ url_for('index') }}">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Budget App | Expense</title>
+    <link rel="stylesheet" href="expense.css" />
+  </head>
+  <body>
+    <div class="container">
+      <nav class="item container__flex" id="navbar">
+        <div>
+          <ul>
+            <li><input type="file" id="profile" /></li>
+            <li id="name">UserName</li>
+            <li id="email">username@gmail.com</li>
+          </ul>
+        </div>
+        <div class="column">
+          <ul>
+            <li><a href="">Dashboard</a></li>
+            <li><a href="">Expenses</a></li>
+            <li><a href="">History</a></li>
+            <li><a href="">Settings</a></li>
+            <li><a href="">Logout</a></li>
+            <li class="logo">Budg€tApp</li>
+          </ul>
+        </div>
+      </nav>
+      <div class="item" id="add__section">
+        <h1>Expenses</h1>
+        <form method="get" action="{{ url_for('index') }}">
                 <label for="month">Filter by Month:</label>
                 <select id="month" name="month">
                     <option value="0">All</option>
@@ -106,7 +59,51 @@
                     <p>No Expenses</p>
                 {% endif %}
             </div>
-            <button id="add-expense-btn">Add Expense</button>
-        </section>
-    </body>
+        <div class="add__flex">
+            <a href="#" id="showForm">
+              <img src="images/plus.png" alt="add expenses" class="add__task" />
+              <p>Add item</p>
+            </a>
+        </div>
+      </div>
+    </div>
+    <div id="myModal" class="modal">
+      <div class="modal-content">
+        <span class="close" id="closeForm">&times;</span>
+        <form method="post" action="/add_expenses">
+          <label for="expenseItem">Expense Item:</label>
+          <input type="text" id="expenseItem" name="expenseItem" required>
+          
+          <label for="expenseAmount">Expense Amount:</label>
+          <input type="number" id="expenseAmount" name="expenseAmount" required>
+          
+          <button type="submit">Add Expense</button>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      var modal = document.getElementById("myModal");
+    
+      var btn = document.getElementById("showForm");
+    
+      var span = document.getElementById("closeForm");
+    
+      btn.onclick = function () {
+        modal.style.display = "block";
+      };
+    
+      span.onclick = function () {
+        modal.style.display = "none";
+      };
+    
+      window.onclick = function (event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      };
+    </script>
+    
+  </body>
 </html>
+    

@@ -8,7 +8,7 @@
 }
 
 body {
-    background-color: #14245A;
+    background-color: #051b6b;
 }
 
 nav {
@@ -79,8 +79,8 @@ a {
     padding: 20px;
 }
 
-.title{
-    padding: 40px 0 0 100px;
+.title, h4{
+    padding: 0 40px 0 40px;
     font-size: 26px;
 }
 
@@ -100,3 +100,84 @@ a {
     font-size: 24px; 
     margin-bottom: 20px;
 }
+
+.menu{
+    color:white;
+}
+.intr{
+    background-color:#3498db;
+    border-radius: 10px;
+    margin: 0 40px 0 40px;
+}
+.intr p,.intr h4{
+    padding:10px;
+}
+.cat{
+    display:flex;
+    flex-direction:row;
+    justify-content:space-between;
+    margin: 0 40px 0 40px;
+}
+.income{
+    margin-top: 10px;
+    width:241px;
+    height: 168px;
+    border-radius: 20px;
+    background-color: #D9D9D9;
+}
+.income h6{
+
+    padding:10px;
+    font-size:20px;
+}
+.income p{
+    padding:6px 12px;
+    font-size: 40px; 
+}
+.income div{
+    display: flex;
+    flex-direction: row;
+    justify-content:space-between
+}
+.income div span{
+    font-weight: 700;
+    color: rgb(4, 17, 94);
+    padding:23px 10px 0 0;
+}
+.budget{
+    margin: 20px 40px 20px 40px;
+    background-color: #D9D9D9;
+    border-radius: 20px;
+    height: 150px; 
+    padding: 20px;
+}
+.w3-container{
+    margin-top: 20px;
+}
+.view_more{
+    font-size:10px;
+    display: flex;
+    justify-content: end;  
+}
+.a{
+    width: 100%;
+    padding-left: 20%;
+}
+.expenses-cat{
+    display: flex;
+    justify-content: space-between;
+}
+.expenses-list{
+    list-style-type: none;
+    display: flex;
+    /* flex: 1; */
+}
+.expenses-list div{
+    display: inline;
+    width: 100%;
+    
+}
+
+
+
+
