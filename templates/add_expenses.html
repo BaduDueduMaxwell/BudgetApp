@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Budget App | Expense</title>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/expenses_style.css') }}">
+    <link rel="stylesheet" href="../static/css/expenses_style.css">
+  </head>
+  <body>
+    <div class="container">
+      <nav class="nav-bar">
+            <ul>
+                <li>
+                    <a href="#" class="logo">
+                        <div class="user-profile">
+                            <img src="static/images/user-dp.jpg" alt=""/>
+                            <span class="nav-item">
+                                {{ first_name }}<br>
+                            </span>
+                            <span class="email">{{ email }}</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('get_dashboard') }}">
+                        <span class="nav-item menu">
+                            Dashboard
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('expenses') }}">
+                        <span class="nav-item menu">
+                            Expenses
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('income') }}">
+                          <span class="nav-item menu">
+                              Income
+                          </span>
+                      </a>
+                  </li>
+                <li>
+                    <a href="#">
+                        <span class="nav-item menu">
+                            Summary
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="nav-item menu">
+                            Settings
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="nav-item menu">
+                            Logout
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+      <div class="white" id="add__section">
+        <div class="title">
+            <h3>Expenses</h3>
+        </div>
+        
+            
+        <section>
+            <h2>Expense Entries</h2>
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                <ul class="flash-messages">
+                    {% for message in messages %}
+                    <li>{{ message }}</li>
+                        {% endfor %}
+                </ul>
+                {% endif %}
+                {% endwith %}
+    <form method="POST" action="{{ url_for('addexpense') }}">
+    <label for="category">Category:</label>
+    <!-- Dropdown for categories -->
+    <select id="category" name="category" required>
+        <option value="food">Food</option>
+        <option value="transportation">Transportation</option>
+        <option value="entertainment">Entertainment</option>
+        <!-- Add more categories as needed -->
+    </select>
+    
+    <label for="expense">Amount:</label>
+    <input type="number" id="expense" name="expense" required>
+    
+    <label for="date">Date:</label>
+    <!-- Actual date input field -->
+    <input type="date" id="date" name="date" required>
+    
+    <button type="submit">Submit</button>
+    </form>
+    <h2>Submit Your Entry</h2>
+                </section>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget App | Income</title>
+    <link rel="stylesheet" href="../static/css/expenses_style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/expenses_style.css') }}">
+</head>
+<body>
+  <nav class="nav-bar">
+    <ul>
+        <li>
+            <a href="#" class="logo">
+                <div class="user-profile">
+                    <img src="static/images/user-dp.jpg" alt=""/>
+                    <span class="nav-item">
+                    {{ first_name }}<br>
+                    </span>
+                    <span class="email">{{ email }}</span>
+                </div>
+            </a>
+        </li>
+        <li>
+          <a href="{{ url_for('get_dashboard') }}">
+              <span class="nav-item menu">
+                  Dashboard
+              </span>
+          </a>
+      </li>
+        <li>
+            <a href="{{ url_for('expenses') }}">
+                <span class="nav-item menu">
+                    Expenses
+                </span>
+            </a>
+        </li>
+        <li>
+          <a href="{{ url_for('income') }}">
+                <span class="nav-item menu">
+                    Income
+                </span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <span class="nav-item menu">
+                    Summary
+                </span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <span class="nav-item menu">
+                    Settings
+                </span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <span class="nav-item menu">
+                    Logout
+                </span>
+            </a>
+        </li>
+        <li>
+            <a href="/dashboard" class="applogo">
+                <span class="nav-item">
+                    BudgetApp
+                </span>
+            </a>
+        </li>
+    </ul>
+</nav>
+<section>
+  <div class="white" id="add__section">
+    <div class="title">
+        <h2>Income</h2>
+    </div>
+    <ul>
+      {% for entry in entries %}
+      <li id="entries"><strong>ID: </strong>{{ entry[0] }} <br>
+        <strong>Category: </strong>{{ entry[1] }} <br>
+        <strong>Amount: </strong>{{ entry[2] }} <br>
+        <strong>Date: </strong>{{ entry[3] }}</li>
+      {% endfor %}
+    </ul>
+    <a href="{{ url_for('addincome') }}">
+        <div class="button-container">      
+          <button type="submit" class="custom-button">Add Income</button>
+        </div>
+      </a>
+    </div>
+  </div>
+    </section>
+</body>
+</html>

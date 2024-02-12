@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Budget signup</title>
+    <link rel="stylesheet" href="static/css/signup.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="item">
+        <img src="static/images/bg-img.PNG" alt="budget image" />
+        <div class="logo__container">
+          <div class="logo">Budg€tApp</div>
+          <p class="logo__slogan">Budget . Glow . Flourish</p>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="form">
+          <h3>signup</h3>
+          <form method = "POST" action="/signup" class="form__container">
+            <input
+              type="text"
+              id="fname"
+              name="first name"
+              placeholder="First Name"
+              class="form__input"
+              required
+            />
+            <input
+              type="text"
+              id="lname"
+              name="last name"
+              placeholder="Last Name"
+              class="form__input"
+              required
+            />
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="Email"
+              class="form__input"
+              required
+            />
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Password"
+              class="form__input"
+              required
+            />
+            <p class="forgot__password">Forgot Password</p>
+
+            <div>
+              <button type="submit" class="signup__btn">Signup Now</button>
+            </div>
+            <div class="btns">
+              <button type="submit">
+                <img
+                  src="../images/google.svg"
+                  alt="google"
+                  class="auth__icons"
+                />
+                signup with<strong>&nbsp;google</strong>
+              </button>
+              <button type="submit">
+                <img
+                  src="../images/facebook.svg"
+                  alt="facebook"
+                  id="facebook"
+                  class="auth__icons"
+                />
+                signup with<strong>&nbsp;facebook</strong>
+              </button>
+            </div>
+            <div>
+              <p>
+                <span>Already have an account?</span>
+                <a href="login.html">login</a>
+              </p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
