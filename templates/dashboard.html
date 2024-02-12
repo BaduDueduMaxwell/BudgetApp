@@ -10,11 +10,11 @@
     </head>
     <body>
         <nav class="nav-bar">
-            <ul>
-                <li>
+            <ul >
+                <li >
                     <a href="#" class="logo">
                         <div class="user-profile">
-                            <img src="user-dp.jpg" alt=""/>
+                            <img src="static/images/user-dp.jpg" alt=""/>
                             <span class="nav-item">
                             {{ first_name }}<br>
                             </span>
@@ -30,28 +30,28 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="/expenses/{{user_id}}">
                         <span class="nav-item menu">
                             Expenses
                         </span>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="/income/{{user_id}}">
                         <span class="nav-item menu">
                             Income
                         </span>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="/summary/{{user_id}}">
                         <span class="nav-item menu">
                             Summary
                         </span>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="setting">
                         <span class="nav-item menu">
                             Settings
                         </span>
@@ -65,7 +65,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/dashboard" class="applogo">
+                    <a href="/dashboard/{{user_id}}" class="applogo">
                         <span class="nav-item">
                             BudgetApp
                         </span>

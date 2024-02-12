@@ -54,22 +54,27 @@ def login():
     cursor.execute("SELECT User_Password, id FROM User WHERE User_Email = ?", (email))
     user_data = cursor.fetchone()
     user_password = user_data[0]
+    user_id = user_data[1]
     if hashed_password == user_password:
-        return render_template("dashboard.html")
+        return render_template("dashboard.html",user_id = user_id)
     
     return render_template("login.html")
     
 @app.get("/dashboard")
 def get_dashboard():
+
     return render_template("dashboard.html")
 
 @app.get("/expenses/<int:id>")
 def get_expenses(id):
     db_connection = get_db()
     cursor = db_connection.cursor()
-    cursor.execute("SELECT DESCRIPTION, VALUE FROM Expense JOIN User on Expense.User_id == User.id WHERE User_id = ?", id)
+    cursor.execute("SELECT User_First_Name,User_Email,DESCRIPTION, VALUE,MONTH FROM Expense JOIN User on Expense.User_id == User.id WHERE User_id = ?", (id,))
     user_data = cursor.fetchone()
-    return render_template("expenses.html")
+    first_name = user_data[0]
+    user_email = user_data[1]
+    expenses = [user_data[2::]]
+    return render_template("expenses.html",first_name = first_name,user_email = user_email,expenses = expenses,id = id )
 
 @app.post("/expenses/<int:id>")
 def add_expense(id):
@@ -83,7 +88,7 @@ def add_expense(id):
     cursor.executemany('INSERT INTO Expense (DESCRIPTION, VALUE, MONTH, User_id) VALUES (?, ?, ?, ?)', (expense_details,))
     db_connection.commit()
     return render_template("expenses.html")
-'''
+
 @app.post("/income/<int:id>")
 def add_income(id):
     income = request.form["incomeItem"]
@@ -93,14 +98,21 @@ def add_income(id):
     income_details = [income,amount,datee,id]
     db_connection = get_db()
     cursor = db_connection.cursor()
-    cursor.executemany('INSERT INTO Income (DESCRIPTION, VALUE, MONTH, User_id) VALUES (?, ?, ?, ?)', (income_details,))
+    cursor.executemany('INSERT INTO Income (SOURCE, VALUE, MONTH, User_id) VALUES (?, ?, ?, ?)', (income_details,))
     db_connection.commit()
-    return render_template("income.html")'''
-
-
-@app.get("/income")
-def get_income():
     return render_template("income.html")
+
+
+@app.get("/income/<int:id>")
+def get_income(id):
+    db_connection = get_db()
+    cursor = db_connection.cursor()
+    cursor.execute("SELECT User_First_Name,User_Email,SOURCE, VALUE,MONTH FROM Income JOIN User on Income.User_id == User.id WHERE User_id = ?", (id,))
+    user_data = cursor.fetchone()
+    first_name = user_data[0]
+    user_email = user_data[1]
+    income_list = [user_data[2::]]
+    return render_template("income.html",first_name = first_name,user_email = user_email,income_list = income_list,id = id )
     
 
     

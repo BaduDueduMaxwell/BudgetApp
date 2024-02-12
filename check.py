@@ -21,3 +21,10 @@ print((hash_text("still@88")) == rows[0])
 Date = str(datetime.datetime.now()).split(" ")[0]
 datee = datetime.datetime.strptime(Date, "%Y-%m-%d").month
 print(datee)
+
+income_details = ["Salary",500,2,1]
+cursor = db.cursor()
+cursor.executemany('INSERT INTO Income (SOURCE, VALUE, MONTH, User_id) VALUES (?, ?, ?, ?)', (income_details,))
+db.commit()
+#user_data = cursor.fetchone()
+#print(user_data[2::])

@@ -1,57 +1,4 @@
-Keklem Yevudza, [07/02/2024 12:47 pm]
-</div>
-            <div>
-                <h4>Details</h4>
-                <div class="dash budget b">
-                    <div>
-                        <h6>Budget</h6>
-                    </div>
-                    <div class="w3-container w3-blue w3-round" style="width:100%">25%</div>
-                    <div class="expenses-cat">
-                        <ul class="expenses-list">
-                            <div>
-                                <li>
-                                    categories
-                                </li>
-                            </div>
-                            <div>
-                                <li>
-                                    categories
-                                </li>
-                            </div>
-                            <div>
-                                <li>
-                                    categories
-                                </li>
-                            </div>
-                            <div>
-                                <li>
-                                    categories
-                                </li>
-                            </div>
-                        </ul>
-                    </div>
-                    <a href="" class="view_more a">
-                        <p class="view_more">View More</p>
-                    </a>
-                </div>
-                <div class="dash budget">
-                    <div>
-                        <h6>Expenses</h6>
-                    </div>
-                    <div class="w3-container w3-blue w3-round" style="width:100%">
-                        25%
-                    </div>
-                    <div class="w3-container w3-blue w3-round" style="width:100%">
-                        25%
-                    </div>
-                </div>
-            </div>
-        </section>
-    </body>
-</html>
 
-Keklem Yevudza, [07/02/2024 3:16 pm]
 * {
     margin: 0;
     padding: 0;
@@ -230,4 +177,7 @@ a {
     display: inline;
     width: 100%;
     
+}
+.nav-bar ul{
+    list-style-type: none;
 }

@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Budget App | Income</title>
-    <link rel="stylesheet" href="expense.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/expenses_style.css') }}">
   </head>
   <body>
     <div class="container">
@@ -18,8 +18,8 @@
         </div>
         <div class="column">
           <ul>
-            <li><a href="">Dashboard</a></li>
-            <li><a href="">Expenses</a></li>
+            <li><a href="/dashboard">Dashboard</a></li>
+            <li><a href="/expenses/{{id}}">Expenses</a></li>
             <li><a href="">History</a></li>
             <li><a href="">Settings</a></li>
             <li><a href="">Logout</a></li>
@@ -29,7 +29,7 @@
       </nav>
       <div class="item" id="add__section">
         <h1>Income</h1>
-        <form method="get" action="{{ url_for('index') }}">
+        <form method="get" action="/income/{{id}}">
                 <label for="month">Filter by Month:</label>
                 <select id="month" name="month">
                     <option value="0">All</option>
@@ -52,7 +52,7 @@
                 {% if income %}
                     <ul>
                         {% for income in income_list %}
-                            <li>{{ income.revenue }} - {{ income.price }}</li>
+                            <li>{{ income[0] }} - {{ income[1] }}</li>
                         {% endfor %}
                     </ul>
                 {% else %}
