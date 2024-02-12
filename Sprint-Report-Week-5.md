@@ -22,13 +22,13 @@ relevant url for the task.
 | Yevudza Keklem Lawrence    |   https://shorturl.at/duGN7,      |   Built the front-end for the expense  page and UI for the DashBoard        |
 |Anokye James Yaw     |  https://shorturl.at/ktDHO, https://shorturl.at/cexzW      |   Built the Frontend for the Home Page and Created the Database             |
 | Adzi-Tay BornGreat Emmanuel | https://shorturl.at/ghpMP | Built authentication for login and signup|
-|Maxwell Duedu | https://shorturl.at/moxET | Designed the UI of the Settings Page |
+|Maxwell Duedu | https://shorturl.at/moxET | Designed the frontend feature of the expense page |
 
 ## What challenges did your team face?
 
 What challenges did your team face? What are you or your teammates blocked on?
 
-* One of our teammates' laptop got spoilt.
+* Maxwell's had an issue with his laptop so it delayed development process of the Settings page.
 * Poor network connectivity.
 
 ## What is your plan for next week?
@@ -38,6 +38,6 @@ What tasks will your team complete? What features will your team build?
 * [Yevudza Keklem Lawrence ]  Improving the visuals(for key metrics from the user's expenses and income) and responsiveness of the dashboard
 * [Anokye James Yaw ] Addition of features(expenses and income - ability of the user to input and save their income and expenses) to the application
 * [Adzi-Tay BornGreat Emmanuel] Creation of timed token for users to logout successfully and working of the Backend of the Expense and Income Page for CRUD operation
-* [Maxwell Duedu] Creation of the Settings Page and implementation which allows the user to update his fist name, last name and password.
+* [Maxwell Duedu] Creation of the Settings Page and implementation which allows the user to update his first name, last name and password.
 
 ## Any other notes or observations from this week?
