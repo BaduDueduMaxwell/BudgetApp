@@ -21,11 +21,11 @@ connect_db.commit()
 connect_db = get_db()
 cursor = connect_db.cursor()
 cursor.execute('''
-                CREATE TABLE IF NOT EXISTS Income(
+                CREATE TABLE IF NOT EXISTS Incomes(
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
-                SOURCE TEXT NOT NULL,
-                VALUE INTEGER NOT NULL,
-                MONTH INTEGER NOT NULL,
+                Source TEXT NOT NULL,
+                Income INTEGER NOT NULL,
+                Date INTEGER NOT NULL,
                 User_id INTEGER NOT NULL,
                 FOREIGN KEY (User_id) REFERENCES User (id)
                 )''')
@@ -35,12 +35,12 @@ connect_db.commit()
 connect_db = get_db()
 cursor = connect_db.cursor()
 cursor.execute('''
-                CREATE TABLE IF NOT EXISTS Expense(
+                CREATE TABLE IF NOT EXISTS Expenses(
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
-                DESCRIPTION TEXT NOT NULL,
-                VALUE INTEGER NOT NULL,
-                MONTH INTEGER NOT NULL,
-                User_id INTEGER NOT NULL,
+                Category TEXT NOT NULL,
+                Expense INTEGER NOT NULL,
+                Date INTEGER NOT NULL,
+                User_id INTEGER ,
                 FOREIGN KEY (User_id) REFERENCES User (id)
                 )''')
 connect_db.commit()

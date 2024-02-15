@@ -1,24 +1,24 @@
 
 <!DOCTYPE html>
-<html>
+<html lang="en-US">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Budget App | Dashboard</title>
-        <link rel="stylesheet" href="static/css/dashboard_style.css">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard_style.css') }}">
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     </head>
     <body>
         <nav class="nav-bar">
-            <ul>
-                <li>
+            <ul >
+                <li >
                     <a href="#" class="logo">
                         <div class="user-profile">
-                            <img src="user-dp.jpg" alt=""/>
+                            <img src="{{ url_for('static', filename='images/MyPassportPicture.jpg') }}" alt=""/>
                             <span class="nav-item">
                             {{ first_name }}<br>
                             </span>
-                            <span class="email">{{ email }}</span>
+                            <span class="email">{{ user_email }}</span>
                         </div>
                     </a>
                 </li>
@@ -30,28 +30,28 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="/expenses/{{user_id}}">
                         <span class="nav-item menu">
                             Expenses
                         </span>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="/income/{{user_id}}">
                         <span class="nav-item menu">
                             Income
                         </span>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="/summary/{{user_id}}">
                         <span class="nav-item menu">
                             Summary
                         </span>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="setting">
                         <span class="nav-item menu">
                             Settings
                         </span>
@@ -65,7 +65,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/dashboard" class="applogo">
+                    <a href="/dashboard/{{user_id}}" class="applogo">
                         <span class="nav-item">
                             BudgetApp
                         </span>
@@ -78,40 +78,24 @@
                 <h3>Dashboard</h3>
             </div>
             <div class="dash intr">
-                <h4>Hi, Emmanuel</h4>
+                <h4>Hi,  {{ first_name }}</h4>
                 <p>If you save you save you save you save</p>
             </div>
-            <div class="dash cat">
+            <div class="dash cat detail">
                 <div class="dash income">
                     <h6>Total Income</h6>
-                    {% if Total_Income %}
-                        <p>{{ Total_Income}}</p>
-                    {% else %}
-                        <p>$0</p>
-                    {% endif %}
+                    <p>${{ total_income if total_income else '0' }}</p>
                 </div>
                 <div class="dash income">
                     <h6>Total Expenses</h6>
-                    {% if Total_Expenses %}
-                        <p>{{ Total_Expenses}}</p>
-                    {% else %}
-                        <p>$0</p>
-                    {% endif %}
+                    <p>${{ total_expenses if total_expenses else '0' }}</p>
                 </div>
                 <div class="dash income">
                     <div>
                         <h6>Savings</h6>
-                        {% if Percentage_Savings %}
-                            <span>{{ Percentage_Savings }}</span>
-                        {% else %}
-                            <span>--%</span>
-                        {% endif %}
+                        <span>{{ percentage_savings if percentage_savings else '--%' }}%</span>
                     </div>
-                    {% if Savings %}
-                        <p>{{ Savings }}</p>
-                    {% else %}
-                        <p>$0</p>
-                    {% endif %}
+                    <p>${{ savings if savings else '0' }}</p>
                 </div>
             </div>
             <div>
@@ -161,6 +145,9 @@
                     </div>
                 </div>
             </div>
+            
         </section>
+        
+        
     </body>
 </html>
