@@ -1,10 +1,22 @@
 from flask import Flask, render_template,request,flash,url_for,redirect,session
 import sqlite3, hashlib
 from datetime import datetime
+import os
 
 DATABASE = "database.db"
 app = Flask(__name__)
 app.secret_key = 'your_unique_secret_key_here'
+app.config["SECRET_KEY"] = os.urandom(24)
+
+def get_current_user():
+    user = None
+    if "user" in session:
+        user = session["user"]
+        with get_db() as conn:
+            cursor = conn.cursor()
+            cursor.execute("SELECT user_Email,User_Password, id FROM User WHERE User_Email = ?", (user,))
+            user = cursor.fetchone()
+    return user
 
 def get_db():
     connection = sqlite3.connect(DATABASE)
@@ -42,10 +54,10 @@ def signup():
 def get_login():
     return render_template("login.html")
 
-@app.route("/logout")
+'''@app.route("/logout")
 def logout():
     session.clear()
-    return redirect(url_for("welcome"))
+    return redirect(url_for("welcome"))'''
 
 
 @app.post("/login")
@@ -61,9 +73,11 @@ def login():
     cursor = db_connection.cursor()
     cursor.execute("SELECT User_Password, id FROM User WHERE User_Email = ?", (email))
     user_data = cursor.fetchone()
+    email = email[0]
     user_password = user_data[0]
     user_id = user_data[1]
     if hashed_password == user_password:
+        session["user"] = email
         return redirect(url_for('get_dashboard', user_id=user_id))
     error = "Incorrect Password or email"  
     return render_template("login.html", error = error)
@@ -97,24 +111,27 @@ def get_expenses_data(user_id):
 
 @app.get("/dashboard/<int:user_id>")
 def get_dashboard(user_id):
-    db_connection = get_db()
-    cursor = db_connection.cursor()
-    cursor.execute("SELECT User_First_Name, User_Last_Name, User_Email FROM User WHERE id = ?", (user_id,))
-    user_data = cursor.fetchone()
-    first_name = user_data[0]
-    last_name = user_data[1]
-    user_email = user_data[2]
-    total_expenses = calculate_total_expenses(user_id)
-    percentage_savings = calculate_percentage_savings(user_id)
-    savings = calculate_savings(user_id)
-    total_income = calculate_total_income(user_id)
-    expenses_data = get_expenses_data(user_id)
-    daily_labels, daily_expenses = get_daily_expenses_data(user_id)
-    expenses_data["dailyLabels"] = daily_labels
-    expenses_data["dailyExpenses"] = daily_expenses
-    financial_data = get_financial_data(user_id)
-    return render_template("dashboard.html", user_id=user_id, first_name=first_name, last_name=last_name, user_email=user_email, total_expenses=total_expenses,percentage_savings=percentage_savings,savings = savings,
-                           total_income = total_income, expenses_data=expenses_data, financial_data=financial_data)
+    user = get_current_user()
+    if user is not None:
+        db_connection = get_db()
+        cursor = db_connection.cursor()
+        cursor.execute("SELECT User_First_Name, User_Last_Name, User_Email FROM User WHERE id = ?", (user_id,))
+        user_data = cursor.fetchone()
+        first_name = user_data[0]
+        last_name = user_data[1]
+        user_email = user_data[2]
+        total_expenses = calculate_total_expenses(user_id)
+        percentage_savings = calculate_percentage_savings(user_id)
+        savings = calculate_savings(user_id)
+        total_income = calculate_total_income(user_id)
+        expenses_data = get_expenses_data(user_id)
+        daily_labels, daily_expenses = get_daily_expenses_data(user_id)
+        expenses_data["dailyLabels"] = daily_labels
+        expenses_data["dailyExpenses"] = daily_expenses
+        financial_data = get_financial_data(user_id)
+        return render_template("dashboard.html", user_id=user_id, first_name=first_name, last_name=last_name, user_email=user_email, total_expenses=total_expenses,percentage_savings=percentage_savings,savings = savings,
+                            total_income = total_income, expenses_data=expenses_data, financial_data=financial_data)
+    return render_template("index.html")
 
 def get_financial_data(user_id):
     total_expenses = calculate_total_expenses(user_id)
@@ -170,59 +187,76 @@ def get_daily_expenses_data(user_id):
 
 @app.get("/expenses/<int:id>")
 def expenses(id):
-    db_connection = get_db()
-    cursor = db_connection.cursor()
-    entries = cursor.execute("SELECT User_First_Name,User_Email,Category, Expense, Date FROM Expenses JOIN User on Expenses.User_id == User.id WHERE User_id = ?", (id,))
-    return render_template("expenses.html",id = id,entries = entries )
+    user = get_current_user()
+    if user is not None:
+        db_connection = get_db()
+        cursor = db_connection.cursor()
+        entries = cursor.execute("SELECT User_First_Name,User_Email,Category, Expense, Date FROM Expenses JOIN User on Expenses.User_id == User.id WHERE User_id = ?", (id,))
+        return render_template("expenses.html",id = id,entries = entries )
+    return render_template("index.html")
 
 @app.route('/addexpenses/<int:id>', methods=['GET', 'POST'])
 def addexpense(id):
-    if request.method == 'POST':
-        category = request.form['category']
-        expense = request.form['expense']
-        date_now = datetime.now()
-        string = '%A, %d. %B %Y %I:%M%p'
-        day_of_week = date_now.strftime('%A') 
-        date = date_now.strftime(string)
-        with get_db() as conn:
-            cursor = conn.cursor()
-            cursor.execute('INSERT INTO Expenses (User_id, Category, Expense, Date, DayOfWeek) VALUES (?, ?, ?, ?, ?)', (id, category, expense, date, day_of_week))
-            conn.commit()
-        flash('Details added successfully', 'success')
-        return redirect(url_for('addexpense', id = id))
-   
-    if request.method == 'GET':
-        db_connection = get_db()
-        cursor = db_connection.cursor()
-        return render_template("add_expenses.html", id = id)
+    user = get_current_user()
+    if user is not None:
+        if request.method == 'POST':
+            category = request.form['category']
+            expense = request.form['expense']
+            date_now = datetime.now()
+            string = '%A, %d. %B %Y %I:%M%p'
+            day_of_week = date_now.strftime('%A') 
+            date = date_now.strftime(string)
+            with get_db() as conn:
+                cursor = conn.cursor()
+                cursor.execute('INSERT INTO Expenses (User_id, Category, Expense, Date, DayOfWeek) VALUES (?, ?, ?, ?, ?)', (id, category, expense, date, day_of_week))
+                conn.commit()
+            flash('Details added successfully', 'success')
+            return redirect(url_for('addexpense', id = id))
+    
+        if request.method == 'GET':
+            db_connection = get_db()
+            cursor = db_connection.cursor()
+            return render_template("add_expenses.html", id = id)
+    return render_template("index.html")
     
 @app.route('/addincome/<int:id>', methods=['GET', 'POST'])
 def addincome(id):
-    if request.method == 'POST':
-        source = request.form['source']
-        income = request.form['income']
-        date_now = datetime.now()
-        string = '%A, %d. %B %Y %I:%M%p'
-        date = date_now.strftime(string)
-        with get_db() as conn:
-            cursor = conn.cursor()
-            cursor.execute('INSERT INTO  Incomes(User_id, Source, Income, Date) VALUES (?, ?, ?, ?)', (id, source, income, date))
-            conn.commit()
-        flash('Details added successfully', 'success')
-        return redirect(url_for('addincome', id = id))
+    user = get_current_user()
+    if user is not None:
+        if request.method == 'POST':
+            source = request.form['source']
+            income = request.form['income']
+            date_now = datetime.now()
+            string = '%A, %d. %B %Y %I:%M%p'
+            date = date_now.strftime(string)
+            with get_db() as conn:
+                cursor = conn.cursor()
+                cursor.execute('INSERT INTO  Incomes(User_id, Source, Income, Date) VALUES (?, ?, ?, ?)', (id, source, income, date))
+                conn.commit()
+            flash('Details added successfully', 'success')
+            return redirect(url_for('addincome', id = id))
 
-    if request.method == 'GET':
-        db_connection = get_db()
-        cursor = db_connection.cursor()
-        return render_template("add_income.html", id = id)
+        if request.method == 'GET':
+            db_connection = get_db()
+            cursor = db_connection.cursor()
+            return render_template("add_income.html", id = id)
+    return render_template("index.html")
 
     
 @app.get("/income/<int:id>")
 def income(id):
-    db_connection = get_db()
-    cursor = db_connection.cursor()
-    entries = cursor.execute("SELECT User_First_Name,User_Email,Source, Income, Date FROM Incomes JOIN User on Incomes.User_id == User.id WHERE User_id = ?", (id,))
-    return render_template("income.html",id = id,entries = entries )
+    user = get_current_user()
+    if user is not None:
+        db_connection = get_db()
+        cursor = db_connection.cursor()
+        entries = cursor.execute("SELECT User_First_Name,User_Email,Source, Income, Date FROM Incomes JOIN User on Incomes.User_id == User.id WHERE User_id = ?", (id,))
+        return render_template("income.html",id = id,entries = entries )
+    return render_template("index.html")
+
+@app.route("/logout")
+def logout():
+    session.pop("user",None)
+    return redirect(url_for("welcome"))
       
 if __name__ == '__main__':
     app.run(debug=True)
