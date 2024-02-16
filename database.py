@@ -40,6 +40,7 @@ cursor.execute('''
                 Category TEXT NOT NULL,
                 Expense INTEGER NOT NULL,
                 Date INTEGER NOT NULL,
+                DayOfWeek TEXT NOT NULL,
                 User_id INTEGER ,
                 FOREIGN KEY (User_id) REFERENCES User (id)
                 )''')

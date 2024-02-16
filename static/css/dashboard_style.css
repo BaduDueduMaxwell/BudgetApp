@@ -196,3 +196,56 @@ a {
 .detail{
     margin-top: 30px;
 }
+canvas {
+    max-width: 400px;
+    max-height: 400px;
+  }
+  .chart-container {
+    position: relative;
+    height: 400px; /* Adjust the height as needed */
+}
+/* Add your existing styles here */
+.chart-container{
+    display: flex;
+}
+
+.chart-container {
+    position: relative;
+    max-width: 100%;
+    margin-bottom: 60px;
+}
+.middle{
+    display: flex;
+    flex-direction: column;
+    margin-right: 80px;
+}
+
+
+.chart-container.left {
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+    margin-right: 80px;
+}
+
+.chart-container.right {
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+    margin-left: 80px;
+}
+/* Additional styles for responsiveness */
+@media (max-width: 768px) {
+    .chart-container.left,
+    .chart-container.right {
+        margin: 10px 0; /* Adjust the margin for smaller screens */
+    }
+    .chart-container {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .chart-container:nth-child(2) {
+        order: -1;
+    }
+}

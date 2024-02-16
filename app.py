@@ -72,7 +72,26 @@ def calculate_total_expenses(user_id):
     total_expenses = cursor.fetchone()[0]
     db_connection.close()
     return total_expenses if total_expenses else 0
-    
+
+def get_expenses_data(user_id):
+    db_connection = get_db()
+    cursor = db_connection.cursor()
+    cursor.execute("SELECT Category, SUM(Expense) FROM Expenses WHERE User_id = ? GROUP BY Category", (user_id,))
+    expense_data = cursor.fetchall()
+    db_connection.close()
+
+    # Process the data for the chart
+    labels = [entry[0] for entry in expense_data]
+    expenses = [entry[1] for entry in expense_data]
+    background_colors = ["#051b6b", "#2980b9", "#21618c"] 
+
+    return {
+        "labels": labels,
+        "expensesData": expenses,
+        "backgroundColor": background_colors
+    }
+
+
 @app.get("/dashboard/<int:user_id>")
 def get_dashboard(user_id):
     db_connection = get_db()
@@ -86,7 +105,24 @@ def get_dashboard(user_id):
     percentage_savings = calculate_percentage_savings(user_id)
     savings = calculate_savings(user_id)
     total_income = calculate_total_income(user_id)
-    return render_template("dashboard.html", user_id=user_id, first_name=first_name, last_name=last_name, user_email=user_email, total_expenses=total_expenses,percentage_savings=percentage_savings,savings = savings,total_income = total_income)
+    expenses_data = get_expenses_data(user_id)
+    daily_labels, daily_expenses = get_daily_expenses_data(user_id)
+    expenses_data["dailyLabels"] = daily_labels
+    expenses_data["dailyExpenses"] = daily_expenses
+    financial_data = get_financial_data(user_id)
+    return render_template("dashboard.html", user_id=user_id, first_name=first_name, last_name=last_name, user_email=user_email, total_expenses=total_expenses,percentage_savings=percentage_savings,savings = savings,
+                           total_income = total_income, expenses_data=expenses_data, financial_data=financial_data)
+
+def get_financial_data(user_id):
+    total_expenses = calculate_total_expenses(user_id)
+    savings = calculate_savings(user_id)
+    total_income = calculate_total_income(user_id)
+
+    return {
+        "totalIncome": total_income,
+        "totalExpenses": total_expenses,
+        "savings": savings
+    }
 
 def calculate_total_income(user_id):
     db_connection = get_db()
@@ -110,6 +146,25 @@ def calculate_savings(user_id):
     savings = total_income - total_expenses
     return savings if savings >= 0 else 0
 
+def get_daily_expenses_data(user_id):
+    db_connection = get_db()
+    cursor = db_connection.cursor()
+    cursor.execute("SELECT DayOfWeek, SUM(Expense) FROM Expenses WHERE User_id = ? GROUP BY DayOfWeek", (user_id,))
+    daily_data = cursor.fetchall()
+    days_of_week = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    
+    daily_expenses = [0] * 7
+    
+    for entry in daily_data:
+        day_name = entry[0]
+        day_index = days_of_week.index(day_name)
+        daily_expenses[day_index] = entry[1]
+    
+    return days_of_week, daily_expenses
+
+
+
+
 @app.get("/expenses/<int:id>")
 def expenses(id):
     db_connection = get_db()
@@ -124,10 +179,11 @@ def addexpense(id):
         expense = request.form['expense']
         date_now = datetime.now()
         string = '%A, %d. %B %Y %I:%M%p'
+        day_of_week = date_now.strftime('%A') 
         date = date_now.strftime(string)
         with get_db() as conn:
             cursor = conn.cursor()
-            cursor.execute('INSERT INTO Expenses (User_id, Category, Expense, Date) VALUES (?, ?, ?, ?)', (id, category, expense, date))
+            cursor.execute('INSERT INTO Expenses (User_id, Category, Expense, Date, DayOfWeek) VALUES (?, ?, ?, ?, ?)', (id, category, expense, date, day_of_week))
             conn.commit()
         flash('Details added successfully', 'success')
         return redirect(url_for('addexpense', id = id))
@@ -151,11 +207,12 @@ def addincome(id):
             conn.commit()
         flash('Details added successfully', 'success')
         return redirect(url_for('addincome', id = id))
-    
+
     if request.method == 'GET':
         db_connection = get_db()
         cursor = db_connection.cursor()
         return render_template("add_incomes.html", id = id)
+
     
 @app.get("/income/<int:id>")
 def income(id):
