@@ -1,0 +1,58 @@
+{% extends "layout.html" %} {% block body %}
+
+<div class="container">
+  <nav class="item container__flex" id="navbar">
+    <div>
+      <ul>
+        <li><input type="file" id="profile" /></li>
+        <li id="name">UserName</li>
+        <li id="email">username@gmail.com</li>
+      </ul>
+    </div>
+    <div class="column">
+      <ul>
+        <li><a href="">Dashboard</a></li>
+        <li><a href="">Expenses</a></li>
+        <li><a href="">History</a></li>
+        <li><a href="settings.html">Settings</a></li>
+        <li><a href="">Logout</a></li>
+        <li class="logo">Budg€tApp</li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="item" id="add__section">
+    <h1 class="ml-3 mt-5 mt">Add Expenses</h1>
+    <label id="lblsuccess" class="text-success ml-5" style="display: none"> </label>
+    <form id="addForm">
+      <div class="row">
+        <div class="col-lg-7 col-md-7 col-sm-7">
+          <input
+            type="text"
+            onkeyup="toggleButton(this, 'submit')"
+            class="form-control ml-3"
+            id="item"
+          />
+        </div>
+
+        <div class="col-lg-5 col-md-5 col-sm-5">
+          <input
+            type="submit"
+            class="btn btn-dark"
+            id="submit"
+            value="Submit"
+            disabled
+          />
+        </div>
+      </div>
+    </form>
+    <h3 class="mt-4 ml-3">Tasks</h3>
+
+    <form id="addForm">
+      <ul class="list-group text-secondary" id="items"></ul>
+    </form>
+  </div>
+</div>
+
+<script src="static/js/app.js"></script>
+{% endblock%}
