@@ -44,3 +44,16 @@ cursor.execute('''
                 FOREIGN KEY (User_id) REFERENCES User (id)
                 )''')
 connect_db.commit()
+
+
+
+connect_db = get_db()
+cursor = connect_db.cursor()
+cursor.execute('''
+                CREATE TABLE IF NOT EXISTS Budget(
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                Category TEXT UNIQUE NOT NULL,
+                Percentage INTEGER NOT NULL,
+                Color TEXT NOT NULL
+                )''')
+connect_db.commit()

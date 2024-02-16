@@ -78,27 +78,37 @@
                 <h3>Dashboard</h3>
             </div>
             <div class="dash intr">
-                <h4>Hi, Emmanuel</h4>
+                <h4>Hi, {{ User_First_Name }}</h4>
                 <p>If you save you save you save you save</p>
             </div>
             <div class="dash cat">
-                <div class="dash income">
+                <!-- <div class="dash income">
                     <h6>Total Income</h6>
                     {% if Total_Income %}
                         <p>{{ Total_Income}}</p>
                     {% else %}
                         <p>$0</p>
                     {% endif %}
-                </div>
+                </div> -->
                 <div class="dash income">
+                    <h6>Total Income</h6>
+                        <p>$0</p>
+                </div>
+
+                <!-- <div class="dash income">
                     <h6>Total Expenses</h6>
                     {% if Total_Expenses %}
                         <p>{{ Total_Expenses}}</p>
                     {% else %}
                         <p>$0</p>
                     {% endif %}
-                </div>
+                </div> -->
                 <div class="dash income">
+                    <h6>Total Expenses</h6>
+                        <p>$0</p>
+                </div>
+
+                <!-- <div class="dash income">
                     <div>
                         <h6>Savings</h6>
                         {% if Percentage_Savings %}
@@ -112,11 +122,18 @@
                     {% else %}
                         <p>$0</p>
                     {% endif %}
+                </div> -->
+                <div class="dash income">
+                    <div>
+                        <h6>Savings</h6>
+                            <span>--%</span>
+                    </div>
+                        <p>$0</p>
                 </div>
             </div>
             <div>
                 <h4>Details</h4>
-                <div class="dash budget b">
+                <!-- <div class="dash budget b">
                     <div>
                         <h6>Budget</h6>
                     </div>
@@ -159,6 +176,26 @@
                     <div class="w3-container w3-blue w3-round" style="width:100%">
                         25%
                     </div>
+                </div>
+            </div> -->
+            <div class="dash budget b">
+                <div>
+                    <h6>Income</h6>
+                </div>
+                <div class="progress-bar-bar">
+                    {% for percentage, color in progress_data %}
+                    <div class="progress-section {{ color }}-section"></div>
+                    <!-- <p>The color is {{ percentage }}</p> -->
+                    {% endfor %}
+                </div>
+                <div>
+                    {% if get_data %}
+                        {% for color, category, percentage in get_data %}
+                            <p>{{ category }} is {{ color }}({{ percentage}}%)</p>
+                        {% endfor %}
+                    {% else %}
+                        <p>No Expense</p>
+                    {% endif %}
                 </div>
             </div>
         </section>

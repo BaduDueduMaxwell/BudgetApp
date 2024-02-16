@@ -61,10 +61,27 @@ def login():
         return render_template("dashboard.html",email = email)
     
     return render_template("login.html")
-    
+
+def get_progress_data_from_database():
+    with get_db() as conn:
+        cursor = conn.cursor()
+        cursor.execute('SELECT Percentage, Color FROM Budget')
+        progress_data = cursor.fetchall()
+    return progress_data 
+
+def get_name_data():
+    with get_db() as conn:
+        cursor = conn.cursor()
+        cursor.execute('SELECT Color, Category, Percentage FROM Budget')
+        get_name_data = cursor.fetchall()
+    return get_name_data
+
+
 @app.get("/dashboard")
 def get_dashboard():
-    return render_template("dashboard.html")
+    progress_data = get_progress_data_from_database()
+    get_data = get_name_data()
+    return render_template("dashboard.html", progress_data=progress_data, get_data = get_data)
 
 @app.get("/expenses/<int:id>")
 def get_expenses(id):
@@ -88,8 +105,31 @@ def add_expense(id):
     return render_template("expenses.html")
 
 
+# Dictionary
+Expenses_color = {
+    'food': 'red',
+    'transportation': 'purple',
+    'entertainment': 'green',
+}
+# Dictionary end
 
-    
+def calculate_total_expenses():
+    db_connection = get_db()
+    cursor = db_connection.cursor()
+    cursor.execute("SELECT SUM(Expense) FROM Expenses")
+    total_expenses = cursor.fetchone()[0]
+    db_connection.close()
+    return total_expenses if total_expenses else 0
+
+def calculate_expense_sum_by_category(category):
+    db_connection = get_db()
+    cursor = db_connection.cursor()
+    cursor.execute("SELECT SUM(Expense) FROM Expenses WHERE Category = ?", (category))
+    expense_sum = cursor.fetchone()[0]
+    db_connection.close()
+    return expense_sum if expense_sum else 0
+
+
 @app.route('/addexpense', methods=['GET', 'POST'])
 def addexpense():
     # If we send POST request to create user
@@ -101,6 +141,24 @@ def addexpense():
         with get_db() as conn:
             cursor = conn.cursor()
             cursor.execute('INSERT INTO Expenses (Category, Expense, Date) VALUES (?, ?, ?)', (category, expense, date))
+            
+            cursor.execute('SELECT * FROM Budget WHERE Category = ?', (category,))
+            budget_row = cursor.fetchone()
+
+            expense_color = Expenses_color.get(category, 'default_color')
+
+
+            if budget_row:
+                total_expenses = calculate_expense_sum_by_category(category)
+                total = calculate_total_expenses()
+                new_percentage = (total_expenses / total) * 100
+                cursor.execute('UPDATE Budget SET Percentage = ?, Color = ? WHERE Category = ?', (new_percentage, expense_color, category))
+            else:
+                total_expenses_category = int(expense)
+                total_expenses_all = calculate_total_expenses()
+                new_percentage = (total_expenses_category / total_expenses_all) * 100
+                cursor.execute('INSERT INTO Budget (Category, Percentage, Color) VALUES (?, ?, ?)', (category, new_percentage, expense_color))
+            
         conn.commit()
         conn.close()
         flash('Details added successfully', 'success')
@@ -116,6 +174,7 @@ def addexpense():
         conn.close()
 
         return render_template('add_expenses.html', entries=entries)
+    
 def get_all_entries():
     with get_db() as conn:
         cursor = conn.cursor()
