@@ -1,0 +1,268 @@
+:root {
+  --fs-sans: "Poppins", sans-serif;
+
+  --fw-light: 200;
+  --fw-normal: 400;
+  --fw-bold: 600;
+
+  --fs-300: 0.727rem;
+  --fs-400: 0.9275rem;
+  --fs-500: 1.25rem;
+  --fs-600: 1.625rem;
+  --fs-800: 2rem;
+  --fs-900: 2.5rem;
+
+  --clr-violet: hsla(263, 66%, 27%, 1);
+  --clr-black: hsl(240, 96%, 1%);
+  --clr-blue: hsl(220, 76%, 58%);
+  --clr-sea-blue: hsl(216, 75%, 72%);
+  --clr-white: hsl(220, 20%, 98%);
+}
+
+.container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+img {
+  width: 100%;
+}
+
+.logo {
+  position: absolute;
+  top: 8px;
+  left: 16px;
+  font-size: var(--fs-600);
+  font-weight: var(--fw-bold);
+}
+
+.logo__slogan {
+  position: absolute;
+  top: 25px;
+  left: 16px;
+  font-size: var(--fs-300);
+  font-style: italic;
+  font-weight: var(--fw-light);
+}
+
+.form {
+  position: absolute;
+  top: 100%;
+  background-color: var(--clr-violet);
+  width: 100%;
+  border-radius: 50px 50px 0 0;
+}
+
+h3 {
+  text-align: center;
+  font-size: var(--fs-500);
+  color: var(--clr-white);
+}
+
+.form__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form__input {
+  width: 250px;
+  padding: 10px;
+  margin: 5px;
+}
+
+input[type="email"],
+input[type="password"] {
+  border: none;
+  outline: none;
+  background-color: var(--clr-violet);
+  color: var(--clr-white);
+  border-bottom: 2px solid hsl(0, 0%, 85%, 1);
+}
+
+input::placeholder {
+  color: var(--clr-white);
+}
+
+.forgot__password {
+  position: absolute;
+  color: var(--clr-black);
+  top: 34%;
+  right: 22%;
+  padding-top: 2px;
+  font-size: var(--fs-300);
+}
+
+.forgot__password:hover {
+  color: var(--clr-white);
+}
+
+.login__btn {
+  margin-top: 40px;
+  width: 90px;
+  height: 35px;
+  background-color: var(--clr-blue);
+  color: var(--clr-white);
+  font-weight: var(--fw-bold);
+  border: 1px solid #e7e7e7;
+  border-radius: 5px;
+}
+
+.login__btn:hover {
+  background-color: var(--clr-sea-blue);
+}
+
+span {
+  color: var(--clr-white);
+  font-size: var(--fs-400);
+}
+
+a {
+  text-decoration: none;
+  color: var(--clr-black);
+}
+
+a:hover {
+  color: var(--clr-white);
+}
+
+.btns {
+  display: flex;
+  flex-direction: column;
+}
+
+.btns > button {
+  display: flex;
+  width: 250px;
+  padding: 10px;
+  margin-top: 15px;
+  align-items: center;
+  background-color: var(--clr-violet);
+  border: 1px solid #e7e7e7;
+  border-radius: 5px;
+  color: var(--clr-white);
+}
+
+.btns > button:hover {
+  background-color: var(--clr-white);
+  color: var(--clr-black);
+}
+
+.auth__icons {
+  width: 30px;
+  padding-left: 50px;
+}
+
+#facebook {
+  width: 20px;
+  padding: 0 5px 0 55px;
+  height: 30px;
+}
+
+/* tablet */
+@media (min-width: 648px) {
+  .logo {
+    font-size: var(--fs-800);
+  }
+
+  .logo__slogan {
+    top: 35px;
+    font-size: var(--fs-400);
+  }
+
+  .form {
+    top: 50%;
+  }
+
+  h3 {
+    font-size: var(--fs-900);
+  }
+
+  .form__input {
+    width: 450px;
+    padding: 20px;
+    margin-bottom: 25px;
+  }
+
+  input::placeholder {
+    font-size: var(--fs-400);
+  }
+
+  .forgot__password {
+    top: 43%;
+    right: 20%;
+    font-size: var(--fs-400);
+  }
+
+  .login__btn {
+    width: 100px;
+    height: 50px;
+  }
+
+  .btns > button {
+    width: 450px;
+    margin-top: 20px;
+    font-size: var(--fs-500);
+  }
+
+  .auth__icons {
+    width: 40px;
+    padding-left: 100px;
+  }
+
+  #facebook {
+    width: 45px;
+    padding: 10px 5px 0 100px;
+    height: 30px;
+  }
+
+  p {
+    font-size: var(--fs-400);
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    display: flex;
+    flex-direction: row-reverse;
+  }
+
+  .item {
+    flex: 1;
+  }
+
+  img {
+    width: 100%;
+  }
+
+  .form {
+    top: 0%;
+    background-color: var(--clr-violet);
+    width: 50%;
+    height: 130%;
+    border-radius: 0;
+  }
+
+  .form__input {
+    width: 350px;
+  }
+
+  .logo__container {
+    position: absolute;
+    top: 8px;
+    right: 100px;
+    font-size: var(--fs-800);
+  }
+
+  .logo__slogan {
+    position: static;
+    margin: 45px 0 0 15px;
+    font-size: var(--fs-400);
+  }
+
+  .forgot__password {
+    top: 32%;
+    right: 16%;
+  }
+}

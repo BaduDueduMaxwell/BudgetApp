@@ -256,6 +256,7 @@ def income(id):
 @app.route("/logout")
 def logout():
     session.pop("user",None)
+    session.clear()
     return redirect(url_for("welcome"))
       
 if __name__ == '__main__':
