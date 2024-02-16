@@ -170,7 +170,7 @@ def expenses(id):
     db_connection = get_db()
     cursor = db_connection.cursor()
     entries = cursor.execute("SELECT User_First_Name,User_Email,Category, Expense, Date FROM Expenses JOIN User on Expenses.User_id == User.id WHERE User_id = ?", (id,))
-    return render_template("expenses.html",id = id,entries = entries )
+    return render_template("expenses.html",id = id, entries = entries )
 
 @app.route('/addexpenses/<int:id>', methods=['GET', 'POST'])
 def addexpense(id):
