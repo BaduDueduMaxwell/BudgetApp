@@ -10,7 +10,9 @@
 body {
   background-color: #051b6b;
 }
-
+.active{
+  color: white;
+}
 nav {
   position: fixed;
   top: 0;
@@ -41,6 +43,7 @@ nav {
 .email {
   font-size: 16px;
   margin-left: 0;
+  color: rgb(255, 255, 255,0.6);
 }
 
 .user-profile {
@@ -54,7 +57,7 @@ nav {
 
 a {
   position: relative;
-  color: white;
+  color: rgb(255, 255, 255,0.6);
   font-size: 16px;
   display: block;
   width: 250px;

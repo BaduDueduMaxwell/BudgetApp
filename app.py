@@ -169,8 +169,18 @@ def get_daily_expenses_data(user_id):
 def expenses(id):
     db_connection = get_db()
     cursor = db_connection.cursor()
+
+    # Fetch user details
+    cursor.execute("SELECT User_First_Name, User_Last_Name, User_Email FROM User WHERE id = ?", (id,))
+    user_data = cursor.fetchone()
+    first_name = user_data[0]
+    user_email = user_data[2]
+
+    # Fetch expense entries
     entries = cursor.execute("SELECT User_First_Name,User_Email,Category, Expense, Date FROM Expenses JOIN User on Expenses.User_id == User.id WHERE User_id = ?", (id,))
-    return render_template("expenses.html",id = id, entries = entries )
+
+    return render_template("expenses.html", id=id, entries=entries, first_name=first_name, user_email=user_email)
+
 
 @app.route('/addexpenses/<int:id>', methods=['GET', 'POST'])
 def addexpense(id):
@@ -211,15 +221,26 @@ def addincome(id):
     if request.method == 'GET':
         db_connection = get_db()
         cursor = db_connection.cursor()
-        return render_template("add_incomes.html", id = id)
+
+        return render_template("add_incomes.html", id = id )
 
     
 @app.get("/income/<int:id>")
 def income(id):
     db_connection = get_db()
     cursor = db_connection.cursor()
+
+    # Fetch user details
+    cursor.execute("SELECT User_First_Name, User_Last_Name, User_Email FROM User WHERE id = ?", (id,))
+    user_data = cursor.fetchone()
+    first_name = user_data[0]
+    user_email = user_data[2]
+
+    # Fetch income entries
     entries = cursor.execute("SELECT User_First_Name,User_Email,Source, Income, Date FROM Incomes JOIN User on Incomes.User_id == User.id WHERE User_id = ?", (id,))
-    return render_template("income.html",id = id,entries = entries )
+
+
+    return render_template("income.html", id=id, entries=entries, first_name=first_name, user_email=user_email)
       
 if __name__ == '__main__':
     app.run(debug=True)
