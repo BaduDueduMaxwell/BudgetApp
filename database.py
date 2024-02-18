@@ -27,6 +27,8 @@ cursor.execute('''
                 VALUE INTEGER NOT NULL,
                 MONTH INTEGER NOT NULL,
                 User_id INTEGER,
+                Percent INTEGER NOT NULL,
+                Color TEXT NOT NULL,
                 FOREIGN KEY (User_id) REFERENCES User (id)
                 )''')
 connect_db.commit()
@@ -42,18 +44,5 @@ cursor.execute('''
                 Date INTEGER NOT NULL,
                 User_id INTEGER ,
                 FOREIGN KEY (User_id) REFERENCES User (id)
-                )''')
-connect_db.commit()
-
-
-
-connect_db = get_db()
-cursor = connect_db.cursor()
-cursor.execute('''
-                CREATE TABLE IF NOT EXISTS Budget(
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                Category TEXT UNIQUE NOT NULL,
-                Percentage INTEGER NOT NULL,
-                Color TEXT NOT NULL
                 )''')
 connect_db.commit()

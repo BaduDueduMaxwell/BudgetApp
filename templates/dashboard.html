@@ -194,7 +194,7 @@
                             <p>{{ category }} is {{ color }}({{ percentage}}%)</p>
                         {% endfor %}
                     {% else %}
-                        <p>No Expense</p>
+                        <p>No Income<a href="{{ url_for('income') }}"> Add Income</a></p>
                     {% endif %}
                 </div>
             </div>

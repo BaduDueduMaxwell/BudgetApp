@@ -106,28 +106,41 @@ def add_expense(id):
 
 
 # Dictionary
-Expenses_color = {
-    'food': 'red',
-    'transportation': 'purple',
-    'entertainment': 'green',
+Income_color = {
+    'Allowance': 'red',
+    'Bonus': 'purple',
+    'Investment': 'green',
+    'Investment': 'green',
+    'Lottery': 'green',
+    'Salary': 'green',
+    'Tips': 'green',
+    'Family': 'green',
+    'Others': 'green',
 }
 # Dictionary end
 
-def calculate_total_expenses():
+def calculate_total_income():
     db_connection = get_db()
     cursor = db_connection.cursor()
-    cursor.execute("SELECT SUM(Expense) FROM Expenses")
-    total_expenses = cursor.fetchone()[0]
+    cursor.execute("SELECT SUM(VALUE) FROM Income")
+    total_income = cursor.fetchone()[0]
     db_connection.close()
-    return total_expenses if total_expenses else 0
+    return total_income if total_income else 0
 
-def calculate_expense_sum_by_category(category):
+def income_percentages():
     db_connection = get_db()
     cursor = db_connection.cursor()
-    cursor.execute("SELECT SUM(Expense) FROM Expenses WHERE Category = ?", (category))
-    expense_sum = cursor.fetchone()[0]
+    cursor.execute("SELECT SUM(VALUE) FROM Income")
+    total_income = cursor.fetchone()[0] or 1
+    cursor.execute("SELECT id, VALUE FROM Income")
+    incomes = cursor.fetchall()
+    for income_id, income_value in incomes:
+        percentage = (income_value / total_income) * 100 if total_income else 0
+        cursor.execute("UPDATE Income SET Percent = ? WHERE id = ?", (percentage, income_id))
+    db_connection.commit()
     db_connection.close()
-    return expense_sum if expense_sum else 0
+
+
 
 
 @app.route('/addexpense', methods=['GET', 'POST'])
@@ -143,21 +156,18 @@ def addexpense():
             cursor.execute('INSERT INTO Expenses (Category, Expense, Date) VALUES (?, ?, ?)', (category, expense, date))
             
             cursor.execute('SELECT * FROM Budget WHERE Category = ?', (category,))
-            budget_row = cursor.fetchone()
-
-            expense_color = Expenses_color.get(category, 'default_color')
 
 
-            if budget_row:
-                total_expenses = calculate_expense_sum_by_category(category)
-                total = calculate_total_expenses()
-                new_percentage = (total_expenses / total) * 100
-                cursor.execute('UPDATE Budget SET Percentage = ?, Color = ? WHERE Category = ?', (new_percentage, expense_color, category))
-            else:
-                total_expenses_category = int(expense)
-                total_expenses_all = calculate_total_expenses()
-                new_percentage = (total_expenses_category / total_expenses_all) * 100
-                cursor.execute('INSERT INTO Budget (Category, Percentage, Color) VALUES (?, ?, ?)', (category, new_percentage, expense_color))
+            # if budget_row:
+            #     total_expenses = calculate_expense_sum_by_category(category)
+            #     total = calculate_total_expenses()
+            #     new_percentage = (total_expenses / total) * 100
+            #     cursor.execute('UPDATE Budget SET Percentage = ?, Color = ? WHERE Category = ?', (new_percentage, expense_color, category))
+            # else:
+            #     total_expenses_category = int(expense)
+            #     total_expenses_all = calculate_total_expenses()
+            #     new_percentage = (total_expenses_category / total_expenses_all) * 100
+            #     cursor.execute('INSERT INTO Budget (Category, Percentage, Color) VALUES (?, ?, ?)', (category, new_percentage, expense_color))
             
         conn.commit()
         conn.close()
@@ -210,9 +220,11 @@ def addincome():
         source = request.form['source']
         income = request.form['income']
         date = request.form['date']
+        expense_color = Income_color.get(source, 'default_color')
         with get_db() as conn:
             cursor = conn.cursor()
-            cursor.execute('INSERT INTO Income (SOURCE, VALUE, MONTH) VALUES (?, ?, ?)', (source, income, date))
+            cursor.execute('INSERT INTO Income (SOURCE, VALUE, MONTH, Percent, Color) VALUES (?, ?, ?, 0, ?)', (source, income, date, expense_color))
+            income_percentages()
         conn.commit()
         conn.close()
         flash('Details added successfully', 'success')
