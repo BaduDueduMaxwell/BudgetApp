@@ -6,7 +6,6 @@
     <title>Budget App | Expense</title>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/expenses_style.css') }}">
-    <link rel="stylesheet" href="../static/css/expenses_style.css">
   </head>
   <body>
     <div class="container">
@@ -15,31 +14,31 @@
                 <li>
                     <a href="#" class="logo">
                         <div class="user-profile">
-                            <img src="static/images/user-dp.jpg" alt=""/>
+                            <img src="{{ url_for('static', filename='images/MyPassportPicture.jpg') }}" alt="User_profile_Pic"/>
                             <span class="nav-item">
-                                {{ first_name }}<br>
+                                {{ first_name}}<br>
                             </span>
-                            <span class="email">{{ email }}</span>
+                            <span class="email">{{ user_email }}</span>
                         </div>
                     </a>
                 </li>
                 <li>
-                    <a href="{{ url_for('get_dashboard') }}">
+                    <a href="/dashboard/{{id}}">
                         <span class="nav-item menu">
                             Dashboard
                         </span>
                     </a>
                 </li>
                 <li>
-                    <a href="{{ url_for('expenses') }}">
+                    <a href="/expenses/{{id}}">
                         <span class="nav-item menu">
                             Expenses
                         </span>
                     </a>
                 </li>
                 <li>
-                    <a href="{{ url_for('income') }}">
-                        <span class="nav-item menu">
+                    <a href="/income/{{id}}">
+                        <span class="nav-item active">
                             Income
                         </span>
                     </a>
@@ -59,7 +58,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="{{ url_for('logout') }}">
                         <span class="nav-item menu">
                             Logout
                         </span>
@@ -72,40 +71,49 @@
             <h3>Expenses</h3>
         </div>
         
-            
-        <section>
-            <h2>Income Entries</h2>
-                {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                <ul class="flash-messages">
-                    {% for message in messages %}
-                    <li>{{ message }}</li>
-                        {% endfor %}
+            <div> 
+                <ul>
+                    <li>James</li>
                 </ul>
-                {% endif %}
-                {% endwith %}
-    <form method="POST" action="{{ url_for('addincome') }}">
-    <label for="source">Source:</label>
+                    <p  class="no_input">No Expenses</p>
+            </div>
+            
+<section>
+    <h2>Guestbook Entries</h2>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <ul class="flash-messages">
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endwith %}
+
+<form method="POST" action="/addincome/{{ id }}">
+    <label for="category">Category:</label>
     <!-- Dropdown for categories -->
     <select id="source" name="source" required>
-        <option value="work">Work</option>
-        <option value="family">Family</option>
-        <option value="allowance">Allowance</option>
-        <!-- Add more categories as needed -->
+        <option value="Allowance">Allowance</option>
+        <option value="Bonus">Bonus</option>
+        <option value="Investment">Investment</option>
+        <option value="Lottery">Lottery</option>
+        <option value="Salary">Salary</option>
+        <option value="Tips">Tips</option>
+        <option value="Family">Family</option>
+        <option value="Others">Others</option>   
     </select>
     
     <label for="income">Amount:</label>
     <input type="number" id="income" name="income" required>
     
-    <label for="date">Date:</label>
-    <!-- Actual date input field -->
-    <input type="date" id="date" name="date" required>
     
     <button type="submit">Submit</button>
-    </form>
-    <h2>Submit Your Entry</h2>
-                </section>
-            </div>
-        </div>
-    </body>
+</form>
+
+<h2>Submit Your Entry</h2>
+</section>
+</div>
+</div>
+</body>
 </html>

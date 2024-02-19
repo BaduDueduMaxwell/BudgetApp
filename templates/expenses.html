@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Expenses</title>
-    <link rel="stylesheet" href="../static/css/expenses_style.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/expenses_style.css') }}">
 </head>
 <body>
@@ -13,35 +12,35 @@
         <li>
             <a href="#" class="logo">
                 <div class="user-profile">
-                    <img src="static/images/user-dp.jpg" alt=""/>
+                    <img src="{{ url_for('static', filename='images/MyPassportPicture.jpg') }}" alt="User_profile_Pic"/>
                     <span class="nav-item">
                     {{ first_name }}<br>
                     </span>
-                    <span class="email">{{ email }}</span>
+                    <span class="email">{{ user_email }}</span>
                 </div>
             </a>
         </li>
         <li>
-            <a href="{{ url_for('get_dashboard') }}">
+            <a href="/dashboard/{{id}}">
                 <span class="nav-item menu">
                     Dashboard
                 </span>
             </a>
         </li>
         <li>
-            <a href="{{ url_for('expenses') }}">
-                <span class="nav-item menu">
+            <a href="/expenses/{{id}}">
+                <span class="nav-item active">
                     Expenses
                 </span>
             </a>
         </li>
         <li>
-            <a href="{{ url_for('income') }}">
-                  <span class="nav-item menu">
-                      Income
-                  </span>
-              </a>
-          </li>
+            <a href="/income/{{id}}">
+                <span class="nav-item menu">
+                    Income
+                </span>
+            </a>
+        </li>
         <li>
             <a href="#">
                 <span class="nav-item menu">
@@ -57,7 +56,7 @@
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="{{ url_for('logout') }}">
                 <span class="nav-item menu">
                     Logout
                 </span>
@@ -79,14 +78,15 @@
     </div>
     <ul>
       {% for entry in entries %}
-      <li id="entries"><strong>ID: </strong>{{ entry[0] }} <br>
-        <strong>Category: </strong>{{ entry[1] }} <br>
-        <strong>Amount: </strong>{{ entry[2] }} <br>
-        <strong>Date: </strong>{{ entry[3] }}</li>
+      <li id="entries">
+        <strong>Category: </strong>{{ entry[2] }} <br>
+        <strong>Amount: </strong>{{ entry[3] }} <br>
+        <strong>Date: </strong>{{ entry[4] }}</li>
         {% endfor %}
-    </ul>
-    <a href="{{ url_for('addexpense') }}">
-        <div class="button-container">      
+      </ul>
+      <a href="/addexpenses/{{id}}">
+        <div class="button-container">    
+          
           <button type="submit" class="custom-button">Add Expense</button>
         </div>
       </a>

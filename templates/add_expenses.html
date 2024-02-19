@@ -6,7 +6,6 @@
     <title>Budget App | Expense</title>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/expenses_style.css') }}">
-    <link rel="stylesheet" href="../static/css/expenses_style.css">
   </head>
   <body>
     <div class="container">
@@ -15,35 +14,35 @@
                 <li>
                     <a href="#" class="logo">
                         <div class="user-profile">
-                            <img src="static/images/user-dp.jpg" alt=""/>
+                            <img src="{{ url_for('static', filename='images/MyPassportPicture.jpg') }}" alt="User_profile_Pic"/>
                             <span class="nav-item">
                                 {{ first_name }}<br>
                             </span>
-                            <span class="email">{{ email }}</span>
+                            <span class="email">{{ user_email }}</span>
                         </div>
                     </a>
                 </li>
                 <li>
-                    <a href="{{ url_for('get_dashboard') }}">
+                    <a href="/dashboard/{{id}}">
                         <span class="nav-item menu">
                             Dashboard
                         </span>
                     </a>
                 </li>
                 <li>
-                    <a href="{{ url_for('expenses') }}">
-                        <span class="nav-item menu">
+                    <a href="/expenses/{{id}}">
+                        <span class="nav-item active">
                             Expenses
                         </span>
                     </a>
                 </li>
                 <li>
-                    <a href="{{ url_for('income') }}">
-                          <span class="nav-item menu">
-                              Income
-                          </span>
-                      </a>
-                  </li>
+                    <a href="/income/{{id}}">
+                        <span class="nav-item menu">
+                            Income
+                        </span>
+                    </a>
+                </li>
                 <li>
                     <a href="#">
                         <span class="nav-item menu">
@@ -59,7 +58,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="{{ url_for('logout') }}">
                         <span class="nav-item menu">
                             Logout
                         </span>
@@ -72,19 +71,35 @@
             <h3>Expenses</h3>
         </div>
         
-            
-        <section>
-            <h2>Expense Entries</h2>
-                {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                <ul class="flash-messages">
-                    {% for message in messages %}
-                    <li>{{ message }}</li>
-                        {% endfor %}
+            <div> 
+                <ul>
+                    <li>James</li>
                 </ul>
-                {% endif %}
-                {% endwith %}
-    <form method="POST" action="{{ url_for('addexpense') }}">
+                    <p  class="no_input">No Expenses</p>
+            </div>
+            <!--
+            <div>
+
+            <a href="#" id="showForm">
+                <div class="additem">
+                <img src="img/button.png">
+              <p class="add_item">Add Expense</p>
+            </div>
+            </a>
+</div> -->
+<section>
+    <h2>Guestbook Entries</h2>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <ul class="flash-messages">
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endwith %}
+
+<form method="POST" action="/addexpenses/{{ id }}">
     <label for="category">Category:</label>
     <!-- Dropdown for categories -->
     <select id="category" name="category" required>
@@ -102,10 +117,11 @@
     <input type="date" id="date" name="date" required>
     
     <button type="submit">Submit</button>
-    </form>
-    <h2>Submit Your Entry</h2>
-                </section>
-            </div>
-        </div>
-    </body>
+</form>
+
+<h2>Submit Your Entry</h2>
+</section>
+</div>
+</div>
+</body>
 </html>

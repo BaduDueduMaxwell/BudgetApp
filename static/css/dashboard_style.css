@@ -8,6 +8,7 @@
     box-sizing: border-box;
 }
 
+
 body {
     background-color: #051b6b;
 }
@@ -40,6 +41,7 @@ nav {
 .email {
     font-size: 16px;
     margin-left: 0;
+    color: rgb(255, 255, 255,0.6);
 }
 
 .user-profile {
@@ -53,11 +55,14 @@ nav {
 
 a {
     position: relative;
-    color: white;
+    color: rgb(255, 255, 255,0.5);
     font-size: 16px;
     display: block;
     width: 250px;
     padding: 12px;
+}
+.active{
+    color: white;
 }
 
 .nav-item {
@@ -103,12 +108,18 @@ a {
 }
 
 .menu{
-    color:white;
+    color: rgb(255, 255, 255,0.6);
 }
 .intr{
     background-color:#3498db;
     border-radius: 10px;
     margin: 0 40px 0 40px;
+    box-shadow:  
+        0 1px 1px rgba(0, 0, 0, 0.1),  
+        0 2px 2px rgba(0, 0, 0, 0.1),  
+        0 4px 4px rgba(0, 0, 0, 0.1),  
+        0 8px 8px rgba(0, 0, 0, 0.1),  
+        0 16px 16px rgba(0, 0, 0, 0.1);
 }
 .intr p,.intr h4{
     padding:10px;
@@ -119,12 +130,31 @@ a {
     justify-content:space-between;
     margin: 0 40px 0 40px;
 }
+
+.dash.cat.detail {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.dash.income {
+    flex: 1 1 1; 
+    margin: 10px;
+    text-align: center; 
+}
+
 .income{
     margin-top: 10px;
     width:241px;
-    height: 168px;
+    min-height: 160px;
     border-radius: 20px;
     background-color: #D9D9D9;
+    box-shadow:  
+        0 1px 1px rgba(0, 0, 0, 0.1),  
+        0 2px 2px rgba(0, 0, 0, 0.1),  
+        0 4px 4px rgba(0, 0, 0, 0.1),  
+        0 8px 8px rgba(0, 0, 0, 0.1),  
+        0 16px 16px rgba(0, 0, 0, 0.1);
 }
 .income h6{
 
@@ -149,8 +179,10 @@ a {
     margin: 20px 40px 20px 40px;
     background-color: #D9D9D9;
     border-radius: 20px;
-    height: 150px; 
     padding: 20px;
+}
+.budget h6{
+    font-size: 20px;
 }
 .w3-container{
     margin-top: 20px;
@@ -181,75 +213,70 @@ a {
 .nav-bar ul{
     list-style-type: none;
 }
-
-
-
-/* Testing mic one two */
-.progress-bar {
-    width: 100%;
-    height: 20px;
-    background-color: #ddd; 
+.detail{
+    margin-top: 30px;
+}
+canvas {
+    max-width: 400px;
+    max-height: 400px;
+  }
+  .chart-container {
     position: relative;
+    height: 400px; /* Adjust the height as needed */
 }
 
-.progress-section {
-    position: absolute;
-    height: 100%;
+.chart-container{
+    display: flex;
 }
 
-.blue-section {
-    background-color: blue;
-    width: 20%;
-}
-
-.green-section {
-    background-color: green;
-    width: 50%;
-    left: 20%;
-}
-
-.red-section {
-    background-color: red;
-    width: 30%;
-    left: 70%;
-}
-
-
-/* Testing database mic one two */
-/* .progress-bar-bar {
-    width: 100%;
-    height: 20px;
-    background-color: #ddd;
+.chart-container {
     position: relative;
+    max-width: 100%;
+    margin-bottom: 60px;
+}
+.middle{
+    display: flex;
+    flex-direction: column;
+    margin-right: 80px;
 }
 
-.progress-bar-section {
-    position: absolute;
-    height: 100%;
-} */
 
-/* {% for percentage, color in progress_data %}
-    .{{ color }}-section {
-        background-color: {{ color }};
-        width: {{ percentage }}%;
-        left: {% if loop.index == 1 %}0{% else %}{{ progress_data[loop.index - 2][0] }}{% endif %}%;
+.chart-container.left {
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+    margin-right: 80px;
+}
+
+.chart-container.right {
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+    margin-left: 80px;
+}
+/* Additional styles for responsiveness */
+@media (max-width: 768px) {
+    .chart-container.left,
+    .chart-container.right {
+        margin: 10px 0; /* Adjust the margin for smaller screens */
     }
-{% endfor %} */
+    .chart-container {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .chart-container:nth-child(2) {
+        order: -1;
+    }
+}
 
+
+/* Addition */
 .progress-bar-bar {
     width: 100%;
     height: 20px;
-    background-color: white;
+    background-color: wheat;
     position: relative;
     overflow: hidden;
+    display: flex;
 }
-
-{% for percentage, color in progress_data %}
-.progress-bar-bar .{{ color }}-section {
-    background-color: {{ color }};
-    width: {{ percentage }}%;
-    left: {% if loop.index == 1 %}0{% else %}{{ progress_data[loop.index - 2][0] }}{% endif %}%;
-    height: 20px; /* Set your desired height */
-    position: absolute;
-}
-{% endfor %}

@@ -1,48 +1,49 @@
 
 <!DOCTYPE html>
-<html>
+<html lang="en-US">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Budget App | Dashboard</title>
-        <link rel="stylesheet" href="../static/css/dashboard_style.css">
-        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard_style.css') }}">
+        <link href='https://fonts.googleapis.com/css?family=Jomhuria' rel='stylesheet'>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     </head>
     <body>
         <nav class="nav-bar">
             <ul >
-                <li >
+                <li>
                     <a href="#" class="logo">
                         <div class="user-profile">
-                            <img src="static/images/user-dp.jpg" alt=""/>
+                            <img src="{{ url_for('static', filename='images/MyPassportPicture.jpg') }}" alt="User_profile_Pic"/>
                             <span class="nav-item">
-                            {{ User_First_Name }}<br>
+                            {{ first_name }}<br>
                             </span>
-                            <span class="email">{{ email }}</span>
+                            <span class="email">{{ user_email }}</span>
                         </div>
                     </a>
                 </li>
                 <li>
-                    <a href="{{ url_for('get_dashboard') }}">
-                        <span class="nav-item menu">
+                    <a href="/dashboard/{{user_id}}">
+                        <span class="nav-item active">
                             Dashboard
                         </span>
                     </a>
                 </li>
                 <li>
-                    <a href="{{ url_for('expenses') }}">
+                    <a href="/expenses/{{user_id}}">
                         <span class="nav-item menu">
                             Expenses
                         </span>
                     </a>
                 </li>
                 <li>
-                    <a href="{{ url_for('income') }}">
-                          <span class="nav-item menu">
-                              Income
-                          </span>
-                      </a>
-                  </li>
+                    <a href="/income/{{user_id}}">
+                        <span class="nav-item menu">
+                            Income
+                        </span>
+                    </a>
+                </li>
                 <li>
                     <a href="/summary/{{user_id}}">
                         <span class="nav-item menu">
@@ -78,126 +79,205 @@
                 <h3>Dashboard</h3>
             </div>
             <div class="dash intr">
-                <h4>Hi, {{ User_First_Name }}</h4>
-                <p>If you save you save you save you save</p>
+                <h4>Hi,  {{ first_name }}</h4>
+                <p style="padding-bottom:5px; padding-top:0px">{{ quote }}</p>
+                <p style="padding-top:0px;">~{{ author }}</p>
             </div>
-            <div class="dash cat">
-                <!-- <div class="dash income">
-                    <h6>Total Income</h6>
-                    {% if Total_Income %}
-                        <p>{{ Total_Income}}</p>
-                    {% else %}
-                        <p>$0</p>
-                    {% endif %}
-                </div> -->
+            <div class="dash cat detail">
                 <div class="dash income">
-                    <h6>Total Income</h6>
-                        <p>$0</p>
+                    <h6 style="text-align: left;">Total Income</h6>
+                    <p style="text-align: left;">${{ total_income if total_income else '0' }}</p>
                 </div>
-
-                <!-- <div class="dash income">
-                    <h6>Total Expenses</h6>
-                    {% if Total_Expenses %}
-                        <p>{{ Total_Expenses}}</p>
-                    {% else %}
-                        <p>$0</p>
-                    {% endif %}
-                </div> -->
                 <div class="dash income">
-                    <h6>Total Expenses</h6>
-                        <p>$0</p>
+                    <h6 style="text-align: left;">Total Expenses</h6>
+                    <p style="text-align: left;">${{ total_expenses if total_expenses else '0' }}</p>
                 </div>
-
-                <!-- <div class="dash income">
-                    <div>
-                        <h6>Savings</h6>
-                        {% if Percentage_Savings %}
-                            <span>{{ Percentage_Savings }}</span>
-                        {% else %}
-                            <span>--%</span>
-                        {% endif %}
-                    </div>
-                    {% if Savings %}
-                        <p>{{ Savings }}</p>
-                    {% else %}
-                        <p>$0</p>
-                    {% endif %}
-                </div> -->
                 <div class="dash income">
                     <div>
                         <h6>Savings</h6>
-                            <span>--%</span>
+                        <span>{{ percentage_savings if percentage_savings else '--' }}%</span>
                     </div>
-                        <p>$0</p>
+                    <p style="text-align: left;">${{ savings if savings else '0' }}</p>
                 </div>
             </div>
             <div>
                 <h4>Details</h4>
-                <!-- <div class="dash budget b">
-                    <div>
-                        <h6>Budget</h6>
-                    </div>
-                    <div class="w3-container w3-blue w3-round" style="width:100%">25%</div>
-                    <div class="expenses-cat">
-                        <ul class="expenses-list">
-                            <div>
-                                <li>
-                                    categories
-                                </li>
-                            </div>
-                            <div>
-                                <li>
-                                    categories
-                                </li>
-                            </div>
-                            <div>
-                                <li>
-                                    categories
-                                </li>
-                            </div>
-                            <div>
-                                <li>
-                                    categories
-                                </li>
-                            </div>
-                        </ul>
-                    </div>
-                    <a href="" class="view_more a">
-                        <p class="view_more">View More</p>
-                    </a>
+                <div class="chart-container middle">
+                    <h4>Total Overview</h4>
+                    <canvas id="pieChart"></canvas>
                 </div>
-                <div class="dash budget">
-                    <div>
-                        <h6>Expenses</h6>
-                    </div>
-                    <div class="w3-container w3-blue w3-round" style="width:100%">
-                        25%
-                    </div>
-                    <div class="w3-container w3-blue w3-round" style="width:100%">
-                        25%
-                    </div>
+            <div class="chart-container" >
+                <div class="chart-container left">
+                    <h4>Expenditures</h4>
+                    <canvas id="myChart"></canvas>
                 </div>
-            </div> -->
+                <div class="chart-container right">
+                    <h4>Daily Expenditure</h4>
+                    <canvas id="lineChart"></canvas>
+                </div>
+            </div>
+            <!-- Addition -->
             <div class="dash budget b">
                 <div>
                     <h6>Income</h6>
-                </div>
+                </div> 
                 <div class="progress-bar-bar">
-                    {% for percentage, color in progress_data %}
-                    <div class="progress-section {{ color }}-section"></div>
-                    <!-- <p>The color is {{ percentage }}</p> -->
-                    {% endfor %}
+                        {% set cumulative_percentage = 0 %}
+                        {% for source, data in total_percentages.items() %}
+                            {% set left_position = 0 if loop.first else cumulative_percentage %}
+                            <div class="progress-bar {{ source|lower }}-section" role="progressbar" style="width: {{ data['percentage'] }}%; background-color: {{ data['color'] }}; left: {{ left_position }}%; height: 20px;">
+                            </div>
+                            {% set cumulative_percentage = cumulative_percentage + data['percentage'] %}
+                        {% endfor %}
                 </div>
+                <br>
                 <div>
-                    {% if get_data %}
-                        {% for color, category, percentage in get_data %}
-                            <p>{{ category }} is {{ color }}({{ percentage}}%)</p>
+                    {% if total_percentages %}
+                        {% for source, data in total_percentages.items() %}
+                            <p style="color: {{ data['color'] }};">- {{ source }}({{ data['percentage']}}%)</p>
                         {% endfor %}
                     {% else %}
-                        <p>No Income<a href="{{ url_for('income') }}"> Add Income</a></p>
+                        <p>No Income<a href="/income/{{user_id}}"> Add Income</a></p>
                     {% endif %}
                 </div>
             </div>
+        </div>
         </section>
+        <script>
+        function updatePieChart(data) {
+            var pieCtx = document.getElementById('pieChart').getContext('2d');
+            var pieChart = new Chart(pieCtx, {
+                type: 'pie',
+                data: {
+                    labels: ['Total Income', 'Total Expenses', 'Savings'],
+                    datasets: [{
+                        data: [data.totalIncome, data.totalExpenses, data.savings],
+                        backgroundColor: ['#001F3F', '#006400', '#708090'],
+                        borderColor: 'white',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    title: {
+                        display: true,
+                        text: 'Financial Overview',
+                        fontSize: 18,
+                        fontColor: 'black'
+                    },
+                    legend: {
+                        position: 'right',
+                        labels: {
+                            boxWidth: 15,
+                            fontStyle: 'bold'
+                        }
+                    }
+                }
+            });
+        }
+    
+        // Use the financial_data passed from the server
+        var financialData = {{ financial_data | tojson | safe | e }};
+    
+        // Update the pie chart with the fetched data
+        updatePieChart(financialData);
+    </script>
+       <script>
+    function updateChart(data) {
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: data.labels,
+                datasets: [{
+                    label: 'Expenses',
+                    data: data.expensesData,
+                    backgroundColor: data.backgroundColor,
+                    borderColor: 'white',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutoutPercentage: 70,
+                title: {
+                    display: true,
+                    text: 'Expenses by Category',
+                    fontSize: 18,
+                    fontColor: 'black'
+                },
+                legend: {
+                    position: 'right',
+                    labels: {
+                        boxWidth: 15,
+                        fontStyle: 'bold'
+                    }
+                }
+            }
+        });
+
+       
+
+        var lineCtx = document.getElementById('lineChart').getContext('2d');
+        var lineChart = new Chart(lineCtx, {
+            type: 'line',
+            data: {
+                labels: data.dailyLabels,
+                datasets: [{
+                    label: 'Daily Expenses',
+                    data: data.dailyExpenses,
+                    fill: false,
+                    borderColor: '#e74c3c',
+                    borderWidth: 2,
+                    pointRadius: 5,
+                    pointBackgroundColor: '#e74c3c',
+                    pointBorderColor: 'white',
+                    pointBorderWidth: 2,
+                    pointHoverRadius: 7,
+                    pointHoverBackgroundColor: 'white',
+                    pointHoverBorderColor: '#e74c3c'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                title: {
+                    display: true,
+                    text: 'Daily Expenses',
+                    fontSize: 18,
+                    fontColor: 'black'
+                },
+                legend: {
+                    display: false
+                },
+                scales: {
+                    xAxes: [{
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Day'
+                        }
+                    }],
+                    yAxes: [{
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Expense ($)'
+                        }
+                    }]
+                }
+            }
+        });
+    }
+
+    // Use the expenses_data passed from the server
+    var expensesData = {{ expenses_data | tojson | safe | e }};
+
+    // Update the chart with the fetched data
+    updateChart(expensesData);
+</script>
+        
     </body>
 </html>
