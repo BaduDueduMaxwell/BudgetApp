@@ -14,11 +14,11 @@
                 <li>
                     <a href="#" class="logo">
                         <div class="user-profile">
-                            <img src="static/images/MyPassportPicture.jpg" alt=""/>
+                            <img src="{{ url_for('static', filename='images/MyPassportPicture.jpg') }}" alt="User_profile_Pic"/>
                             <span class="nav-item">
-                                {{ User_First_Name }}<br>
+                                {{ first_name}}<br>
                             </span>
-                            <span class="email">{{ email }}</span>
+                            <span class="email">{{ user_email }}</span>
                         </div>
                     </a>
                 </li>
@@ -38,7 +38,7 @@
                 </li>
                 <li>
                     <a href="/income/{{id}}">
-                        <span class="nav-item menu">
+                        <span class="nav-item active">
                             Income
                         </span>
                     </a>
@@ -77,16 +77,7 @@
                 </ul>
                     <p  class="no_input">No Expenses</p>
             </div>
-            <!--
-            <div>
-
-            <a href="#" id="showForm">
-                <div class="additem">
-                <img src="img/button.png">
-              <p class="add_item">Add Expense</p>
-            </div>
-            </a>
-</div> -->
+            
 <section>
     <h2>Guestbook Entries</h2>
     {% with messages = get_flashed_messages() %}

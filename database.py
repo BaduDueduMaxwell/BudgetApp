@@ -25,8 +25,11 @@ cursor.execute('''
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 Source TEXT NOT NULL,
                 Income INTEGER NOT NULL,
-                Date INTEGER NOT NULL,
+                Date TEXT NOT NULL,
                 User_id INTEGER NOT NULL,
+                Percent INTEGER NOT NULL,
+                Color TEXT NOT NULL,
+                Month INTEGER NOT NULL,
                 FOREIGN KEY (User_id) REFERENCES User (id)
                 )''')
 connect_db.commit()
@@ -39,8 +42,9 @@ cursor.execute('''
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 Category TEXT NOT NULL,
                 Expense INTEGER NOT NULL,
-                Date INTEGER NOT NULL,
+                Date TEXT NOT NULL,
                 DayOfWeek TEXT NOT NULL,
+                Month INTEGER NOT NULL,
                 User_id INTEGER ,
                 FOREIGN KEY (User_id) REFERENCES User (id)
                 )''')

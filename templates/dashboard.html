@@ -6,17 +6,16 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Budget App | Dashboard</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard_style.css') }}">
-        
-        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link href='https://fonts.googleapis.com/css?family=Jomhuria' rel='stylesheet'>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     </head>
     <body>
         <nav class="nav-bar">
             <ul >
-                <li >
+                <li>
                     <a href="#" class="logo">
                         <div class="user-profile">
-                            <img src="{{ url_for('static', filename='images/MyPassportPicture.jpg') }}" alt=""/>
+                            <img src="{{ url_for('static', filename='images/MyPassportPicture.jpg') }}" alt="User_profile_Pic"/>
                             <span class="nav-item">
                             {{ first_name }}<br>
                             </span>
@@ -26,7 +25,7 @@
                 </li>
                 <li>
                     <a href="/dashboard/{{user_id}}">
-                        <span class="nav-item menu">
+                        <span class="nav-item active">
                             Dashboard
                         </span>
                     </a>
@@ -46,14 +45,14 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/summary/{{id}}">
+                    <a href="/summary/{{user_id}}">
                         <span class="nav-item menu">
                             Summary
                         </span>
                     </a>
                 </li>
                 <li>
-                    <a href="setting">
+                    <a href="/setting/{{user_id}}">
                         <span class="nav-item menu">
                             Settings
                         </span>
@@ -67,7 +66,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/dashboard/{{id}}" class="applogo">
+                    <a href="/dashboard/{{user_id}}" class="applogo">
                         <span class="nav-item">
                             BudgetApp
                         </span>
@@ -81,23 +80,24 @@
             </div>
             <div class="dash intr">
                 <h4>Hi,  {{ first_name }}</h4>
-                <p>If you save you save you save you save</p>
+                <p style="padding-bottom:5px; padding-top:0px">{{ quote }}</p>
+                <p style="padding-top:0px;">~{{ author }}</p>
             </div>
             <div class="dash cat detail">
                 <div class="dash income">
-                    <h6>Total Income</h6>
-                    <p>${{ total_income if total_income else '0' }}</p>
+                    <h6 style="text-align: left;">Total Income</h6>
+                    <p style="text-align: left;">${{ total_income if total_income else '0' }}</p>
                 </div>
                 <div class="dash income">
-                    <h6>Total Expenses</h6>
-                    <p>${{ total_expenses if total_expenses else '0' }}</p>
+                    <h6 style="text-align: left;">Total Expenses</h6>
+                    <p style="text-align: left;">${{ total_expenses if total_expenses else '0' }}</p>
                 </div>
                 <div class="dash income">
                     <div>
                         <h6>Savings</h6>
-                        <span>{{ percentage_savings if percentage_savings else '--%' }}</span>
+                        <span>{{ percentage_savings if percentage_savings else '--' }}%</span>
                     </div>
-                    <p>${{ savings if savings else '0' }}</p>
+                    <p style="text-align: left;">${{ savings if savings else '0' }}</p>
                 </div>
             </div>
             <div>
@@ -116,8 +116,32 @@
                     <canvas id="lineChart"></canvas>
                 </div>
             </div>
+            <!-- Addition -->
+            <div class="dash budget b">
+                <div>
+                    <h6>Income</h6>
+                </div> 
+                <div class="progress-bar-bar">
+                        {% set cumulative_percentage = 0 %}
+                        {% for source, data in total_percentages.items() %}
+                            {% set left_position = 0 if loop.first else cumulative_percentage %}
+                            <div class="progress-bar {{ source|lower }}-section" role="progressbar" style="width: {{ data['percentage'] }}%; background-color: {{ data['color'] }}; left: {{ left_position }}%; height: 20px;">
+                            </div>
+                            {% set cumulative_percentage = cumulative_percentage + data['percentage'] %}
+                        {% endfor %}
+                </div>
+                <br>
+                <div>
+                    {% if total_percentages %}
+                        {% for source, data in total_percentages.items() %}
+                            <p style="color: {{ data['color'] }};">- {{ source }}({{ data['percentage']}}%)</p>
+                        {% endfor %}
+                    {% else %}
+                        <p>No Income<a href="/income/{{user_id}}"> Add Income</a></p>
+                    {% endif %}
+                </div>
+            </div>
         </div>
-            
         </section>
         <script>
         function updatePieChart(data) {

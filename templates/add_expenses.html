@@ -14,11 +14,11 @@
                 <li>
                     <a href="#" class="logo">
                         <div class="user-profile">
-                            <img src="static/images/MyPassportPicture.jpg" alt=""/>
+                            <img src="{{ url_for('static', filename='images/MyPassportPicture.jpg') }}" alt="User_profile_Pic"/>
                             <span class="nav-item">
-                                {{ User_First_Name }}<br>
+                                {{ first_name }}<br>
                             </span>
-                            <span class="email">{{ email }}</span>
+                            <span class="email">{{ user_email }}</span>
                         </div>
                     </a>
                 </li>
@@ -31,7 +31,7 @@
                 </li>
                 <li>
                     <a href="/expenses/{{id}}">
-                        <span class="nav-item menu">
+                        <span class="nav-item active">
                             Expenses
                         </span>
                     </a>
