@@ -1,41 +1,74 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Budget App | Expense</title>
-    <link rel="stylesheet" href="static/css/settings.css" />
-  </head>
-  <body>
-    <div class="container">
-      <nav class="item container__flex" id="navbar">
-        <div>
-          <ul>
-            <li><input type="file" id="profile" /></li>
-            <li id="name">UserName</li>
-            <li id="email">username@gmail.com</li>
-          </ul>
-        </div>
-        <div class="column">
-          <ul>
-            <li><a href="">Dashboard</a></li>
-            <li><a href="">Expenses</a></li>
-            <li><a href="">History</a></li>
-            <li><a href="">Settings</a></li>
-            <li><a href="">Logout</a></li>
-            <li class="logo">Budg€tApp</li>
-          </ul>
-        </div>
-      </nav>
-      <div class="item" id="settings__section">
-        <h1>Expenses</h1>
-        <p>Profile</p>
-        <div class="pad">
-          <p>First Name</p>
-          <p>Last Name</p>
-          <p>Password</p>
-        </div>
-      </div>
-    </div>
-  </body>
-</html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expenses</title>
+    <link href='https://fonts.googleapis.com/css?family=Jomhuria' rel='stylesheet'>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/expenses_style.css') }}">
+</head>
+<body>
+  <nav class="nav-bar">
+    <ul>
+        <li>
+            <a href="#" class="logo">
+                <div class="user-profile">
+                    <img src="{{ url_for('static', filename='images/MyPassportPicture.jpg') }}" alt=""/>
+                    <span class="nav-item">
+                    {{ first_name }}<br>
+                    </span>
+                    <span class="email">{{ user_email }}</span>
+                </div>
+            </a>
+        </li>
+        <li>
+            <a href="/dashboard/{{id}}">
+                <span class="nav-item menu">
+                    Dashboard
+                </span>
+            </a>
+        </li>
+        <li>
+            <a href="/expenses/{{id}}">
+                <span class="nav-item menu">
+                    Expenses
+                </span>
+            </a>
+        </li>
+        <li>
+            <a href="/income/{{id}}">
+                <span class="nav-item active">
+                    Income
+                </span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <span class="nav-item menu">
+                    Summary
+                </span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <span class="nav-item menu">
+                    Settings
+                </span>
+            </a>
+        </li>
+        <li>
+            <a href="{{ url_for('logout') }}">
+                <span class="nav-item menu">
+                    Logout
+                </span>
+            </a>
+        </li>
+        <li>
+            <a href="/dashboard" class="applogo">
+                <span class="nav-item">
+                    BudgetApp
+                </span>
+            </a>
+        </li>
+    </ul>
+</nav>

@@ -26,6 +26,9 @@ cursor.execute('''
                 Source TEXT NOT NULL,
                 Income INTEGER NOT NULL,
                 Date TEXT NOT NULL,
+                MonthAndYear TEXT NOT NULL,
+                Percent INTEGER NOT NULL,
+                Color TEXT NOT NULL,
                 User_id INTEGER NOT NULL,
                 FOREIGN KEY (User_id) REFERENCES User (id)
                 )''')
@@ -40,6 +43,7 @@ cursor.execute('''
                 Category TEXT NOT NULL,
                 Expense INTEGER NOT NULL,
                 Date TEXT NOT NULL,
+                MonthAndYear TEXT NOT NULL,
                 DayOfWeek TEXT NOT NULL,
                 User_id INTEGER ,
                 FOREIGN KEY (User_id) REFERENCES User (id)

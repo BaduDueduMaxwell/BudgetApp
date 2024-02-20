@@ -80,20 +80,21 @@
             </div>
             <div class="dash intr">
                 <h4>Hi,  {{ first_name }}</h4>
-                <p>If you save you save you save you save</p>
+                <p>{{ quote }}</p>
+                <p class="author">~{{ author }}</p>
             </div>
             <div class="dash cat detail">
                 <div class="dash income">
-                    <h6>Total Income</h6>
+                    <h6>Total Income For {{Month}}</h6>
                     <p>${{ total_income if total_income else '0' }}</p>
                 </div>
                 <div class="dash income">
-                    <h6>Total Expenses</h6>
+                    <h6>Total Expenses For {{Month}}</h6>
                     <p>${{ total_expenses if total_expenses else '0' }}</p>
                 </div>
                 <div class="dash income">
                     <div>
-                        <h6>Savings</h6>
+                        <h6>Savings For {{Month}}</h6>
                         <span>{{ percentage_savings if percentage_savings else '--%' }}</span>
                     </div>
                     <p>${{ savings if savings else '0' }}</p>
@@ -113,6 +114,31 @@
                 <div class="chart-container right">
                     <h4>Daily Expenditure</h4>
                     <canvas id="lineChart"></canvas>
+                </div>
+            </div>
+             <!-- Addition -->
+             <div class="dash budget b">
+                <div>
+                    <h6>Income</h6>
+                </div> 
+                <div class="progress-bar-bar">
+                        {% set cumulative_percentage = 0 %}
+                        {% for source, data in total_percentages.items() %}
+                            {% set left_position = 0 if loop.first else cumulative_percentage %}
+                            <div class="progress-bar {{ source|lower }}-section" role="progressbar" style="width: {{ data['percentage'] }}%; background-color: {{ data['color'] }}; left: {{ left_position }}%; height: 20px;">
+                            </div>
+                            {% set cumulative_percentage = cumulative_percentage + data['percentage'] %}
+                        {% endfor %}
+                </div>
+                <br>
+                <div>
+                    {% if total_percentages %}
+                        {% for source, data in total_percentages.items() %}
+                            <p style="color: {{ data['color'] }};">- {{ source }}({{ data['percentage']}}%)</p>
+                        {% endfor %}
+                    {% else %}
+                        <p>No Income<a href="/income/{{user_id}}"> Add Income</a></p>
+                    {% endif %}
                 </div>
             </div>
         </div>

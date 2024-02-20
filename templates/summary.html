@@ -17,7 +17,7 @@
                         <div class="user-profile">
                             <img src="{{ url_for('static', filename='images/MyPassportPicture.jpg') }}" alt=""/>
                             <span class="nav-item">
-                                {{ first_name }}<br>
+                                {{ first_name}}<br>
                             </span>
                             <span class="email">{{ user_email }}</span>
                         </div>
@@ -32,7 +32,7 @@
                 </li>
                 <li>
                     <a href="/expenses/{{id}}">
-                        <span class="nav-item active">
+                        <span class="nav-item menu">
                             Expenses
                         </span>
                     </a>
@@ -46,7 +46,7 @@
                 </li>
                 <li>
                     <a href="#">
-                        <span class="nav-item menu">
+                        <span class="nav-item active">
                             Summary
                         </span>
                     </a>
@@ -67,62 +67,42 @@
                 </li>
             </ul>
         </nav>
-      <div class="white" id="add__section">
-        <div class="title">
-            <h3>Expenses</h3>
-        </div>
-        
-            <div> 
-                <ul>
-                    <li>James</li>
+        <section>
+            
+            <div class="white" id="add__section">
+              <div class="title">
+                <h2>Summary</h2>
+                <form method="POST" action="/summary/{{ id }}">
+                    <label for="month">Month:</label>
+                    <select id="month" name="month" required>
+                        {% for month in ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"] %}
+                            <option value="{{ month }}" {% if month == selected_month %}selected{% endif %}>{{ month }}</option>
+                        {% endfor %}
+                    </select>
+                    
+                    <button type="submit">Submit</button>
+                </form>
+              </div>
+              <ul>
+                {% for entry in entries %}
+                <li id="entries">
+                  <strong>Category: </strong>{{ entry[2] }} <br>
+                  <strong>Amount: </strong>${{ entry[3] }} <br>
+                  <strong>Date: </strong>{{ entry[4] }}</li>
+                  {% endfor %}
                 </ul>
-                    <p  class="no_input">No Expenses</p>
+                <ul>
+                    {% for income in incomes %}
+                    <li id="entries">
+                      <strong>Category: </strong>{{ income[2] }} <br>
+                      <strong>Amount: </strong>${{ income[3] }} <br>
+                      <strong>Date: </strong>{{ income[4] }}</li>
+                      {% endfor %}
+                    </ul>
+                </div>
             </div>
-            <!--
-            <div>
-
-            <a href="#" id="showForm">
-                <div class="additem">
-                <img src="img/button.png">
-              <p class="add_item">Add Expense</p>
-            </div>
-            </a>
-</div> -->
-<section>
-    <h2>Guestbook Entries</h2>
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-        <ul class="flash-messages">
-            {% for message in messages %}
-                <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-{% endwith %}
-
-<form method="POST" action="/addexpenses/{{ id }}">
-    <label for="category">Category:</label>
-    <!-- Dropdown for categories -->
-    <select id="category" name="category" required>
-        <option value="food">Food</option>
-        <option value="transportation">Transportation</option>
-        <option value="entertainment">Entertainment</option>
-        <!-- Add more categories as needed -->
-    </select>
-    
-    <label for="expense">Amount:</label>
-    <input type="number" id="expense" name="expense" required>
-    
-    <label for="date">Date:</label>
-    <!-- Actual date input field -->
-    <input type="date" id="date" name="date" required>
-    
-    <button type="submit">Submit</button>
-</form>
-
-<h2>Submit Your Entry</h2>
-</section>
-</div>
-</div>
-</body>
-</html>
+            
+        </div>
+          </section>
+      </body>
+      </html>
