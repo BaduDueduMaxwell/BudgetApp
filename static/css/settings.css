@@ -21,7 +21,7 @@
   .container {
     display: flex;
     flex-direction: row;
-    background-color: var(--clr-violet);
+    background-color: #051b6b;
     padding: 10px;
     border-radius: 20px;
     height: 100vh;
@@ -69,7 +69,7 @@
   }
   
   #navbar {
-    background-color: var(--clr-violet);
+    background-color: #051b6b;
     width: 30%;
   }
   

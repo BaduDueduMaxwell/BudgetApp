@@ -1,74 +1,102 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-US">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Expenses</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Budget App | Settings</title>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Jomhuria' rel='stylesheet'>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/expenses_style.css') }}">
 </head>
 <body>
-  <nav class="nav-bar">
-    <ul>
-        <li>
-            <a href="#" class="logo">
-                <div class="user-profile">
-                    <img src="{{ url_for('static', filename='images/MyPassportPicture.jpg') }}" alt=""/>
-                    <span class="nav-item">
-                    {{ first_name }}<br>
-                    </span>
-                    <span class="email">{{ user_email }}</span>
-                </div>
-            </a>
-        </li>
-        <li>
-            <a href="/dashboard/{{id}}">
-                <span class="nav-item menu">
-                    Dashboard
-                </span>
-            </a>
-        </li>
-        <li>
-            <a href="/expenses/{{id}}">
-                <span class="nav-item menu">
-                    Expenses
-                </span>
-            </a>
-        </li>
-        <li>
-            <a href="/income/{{id}}">
-                <span class="nav-item active">
-                    Income
-                </span>
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <span class="nav-item menu">
-                    Summary
-                </span>
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <span class="nav-item menu">
-                    Settings
-                </span>
-            </a>
-        </li>
-        <li>
-            <a href="{{ url_for('logout') }}">
-                <span class="nav-item menu">
-                    Logout
-                </span>
-            </a>
-        </li>
-        <li>
-            <a href="/dashboard" class="applogo">
-                <span class="nav-item">
-                    BudgetApp
-                </span>
-            </a>
-        </li>
-    </ul>
-</nav>
+    <div class="container">
+        <nav class="nav-bar">
+            <ul>
+                <li>
+                    <a href="#" class="logo">
+                        <div class="user-profile">
+                            <img src="{{ url_for('static', filename='images/MyPassportPicture.jpg') }}" alt=""/>
+                            <span class="nav-item">
+                                {{ first_name }}<br>
+                            </span>
+                            <span class="email">{{ user_email }}</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="/dashboard/{{ id }}">
+                        <span class="nav-item menu">
+                            Dashboard
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/expenses/{{ id }}">
+                        <span class="nav-item menu">
+                            Expenses
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/income/{{ id }}">
+                        <span class="nav-item">
+                            Income
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/summary/{{ id }}">
+                        <span class="nav-item menu">
+                            Summary
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/settings/{{ id }}">
+                        <span class="nav-item active">
+                            Settings
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('logout') }}">
+                        <span class="nav-item menu">
+                            Logout
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <div class="white" id="add__section">
+            <div class="title">
+                <h3>Settings</h3>
+            </div>
+            {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <ul class="flash-messages">
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endwith %}
+            <section class="settings">
+                <h2>Change Profile Settings</h2>
+                <form method="POST" action="/settings/{{ id }}" >
+                    <label for="first name">First Name:</label>
+                    <input type="text" id="first name" name="first name"  >
+                    <label for="surname">Surname:</label>
+                    <input type="text" id="surname" name="surname" >
+        
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email"  >
+        
+                    <!-- Add more fields as needed -->
+        
+                    <button type="submit">Save Changes</button>
+                </form>
+            </section>
+        </div>
+    </div>
+</body>
+</html>

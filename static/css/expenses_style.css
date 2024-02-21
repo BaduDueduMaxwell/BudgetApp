@@ -101,8 +101,12 @@ a {
   border: 20px;
   padding: 15px;
   border-radius: 8px;
-  background-color: #fff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #f0f5fb; 
+  box-shadow:  0 1px 1px rgba(0, 0, 0, 0.1),  
+  0 2px 2px rgba(0, 0, 0, 0.1),  
+  0 4px 4px rgba(0, 0, 0, 0.1),  
+  0 8px 8px rgba(0, 0, 0, 0.1),  
+  0 16px 16px rgba(0, 0, 0, 0.1);;
 }
 ul {
   list-style: none;
@@ -126,4 +130,9 @@ button:hover {
 .title h2 {
   color: #004080; 
   padding-bottom: 10px;
+}
+/*Settings*/
+.settings{
+  display: flex;
+  flex-direction: column;
 }

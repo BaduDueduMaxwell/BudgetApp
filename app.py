@@ -105,14 +105,16 @@ def get_quote():
 
 # Dictionary
 Income_color = {
-    'Bonus': '#d62828',      
-    'Investment': '#2a9d8f', 
-    'Lottery': '#ffba08',    
-    'Salary': '#2b2d42',     
-    'Tips': '#6a0572',       
-    'Family': '#f4a261',     
-    'Others': '#e9c46a'      
-}
+    'Allowance': '#051b6b',
+    'Bonus': 'purple',
+    'Investment': 'green',
+    'Lottery': 'blue',
+    'Salary': 'orange',
+    'Tips': 'cyan',
+    'Family': 'yellow',
+    'Others': '#3498d',
+}    
+
 quotes_dict = {
     "Being rich is having money; being wealthy is having time.": "Margaret Bonanno",
     "The only man who never makes mistakes is the man who never does anything.": "Theodore Roosevelt",
@@ -408,6 +410,26 @@ def summary(id):
         entries = cursor.fetchall()
 
         return render_template('summary.html', id=id, entries=entries, first_name=first_name, user_email=user_email, incomes=incomes, date=date,selected_month=selected_month)
+@app.route('/settings/<int:id>', methods=['GET', 'POST'])
+def settings(id):
+    if request.method == 'GET':
+        db_connection = get_db()
+        cursor = db_connection.cursor()
+        cursor.execute("SELECT User_First_Name, User_Last_Name, User_Email FROM User WHERE id = ?", (id,))
+        user_data = cursor.fetchone()
+        first_name = user_data[0]
+        user_email = user_data[2]
+        return render_template('settings.html', id=id,first_name=first_name, user_email=user_email)
+    if request.method == 'POST':
+        First_name = request.form['first name']
+        Surname = request.form['surname']
+        email = request.form['email']
+        db_connection = get_db()
+        cursor = db_connection.cursor()
+        cursor.execute('UPDATE User SET User_First_Name = ?, User_Last_Name = ?, User_Email = ? WHERE id = ?', (First_name, Surname, email, id))
+        db_connection.commit()
+        flash('Details added successfully', 'success')
+        return redirect(url_for('settings', id = id))
 
 if __name__ == '__main__':
     app.run(debug=True)

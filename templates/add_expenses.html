@@ -45,7 +45,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="/summary/{{id}}">
                         <span class="nav-item menu">
                             Summary
                         </span>
@@ -74,9 +74,9 @@
         
             <div> 
                 <ul>
-                    <li>James</li>
+                    <li></li>
                 </ul>
-                    <p  class="no_input">No Expenses</p>
+                    <p  class="no_input"></p>
             </div>
             <!--
             <div>
@@ -89,7 +89,7 @@
             </a>
 </div> -->
 <section>
-    <h2>Guestbook Entries</h2>
+    <h2>Expense Entries</h2>
     {% with messages = get_flashed_messages() %}
     {% if messages %}
         <ul class="flash-messages">
