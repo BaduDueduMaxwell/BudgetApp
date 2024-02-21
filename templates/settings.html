@@ -1,41 +1,111 @@
 <!DOCTYPE html>
-<html>
-  <head>
+<html lang="en-US">
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Budget App | Expense</title>
-    <link rel="stylesheet" href="static/css/settings.css" />
-  </head>
-  <body>
+    <title>Budget App | Settings</title>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Jomhuria' rel='stylesheet'>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/expenses_style.css') }}">
+</head>
+<body>
     <div class="container">
-      <nav class="item container__flex" id="navbar">
-        <div>
-          <ul>
-            <li><input type="file" id="profile" /></li>
-            <li id="name">UserName</li>
-            <li id="email">username@gmail.com</li>
-          </ul>
+        <nav class="nav-bar">
+            <ul>
+                <li>
+                    <a href="#" class="logo">
+                        <div class="user-profile">
+                            <img src="{{ url_for('static', filename='images/MyPassportPicture.jpg') }}" alt=""/>
+                            <span class="nav-item">
+                                {{ first_name }}<br>
+                            </span>
+                            <span class="email">{{ user_email }}</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="/dashboard/{{ id }}">
+                        <span class="nav-item menu">
+                            Dashboard
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/expenses/{{ id }}">
+                        <span class="nav-item menu">
+                            Expenses
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/income/{{ id }}">
+                        <span class="nav-item">
+                            Income
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/summary/{{ id }}">
+                        <span class="nav-item menu">
+                            Summary
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/settings/{{ id }}">
+                        <span class="nav-item active">
+                            Settings
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('logout') }}">
+                        <span class="nav-item menu">
+                            Logout
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <div class="white" id="add__section">
+            <div class="title">
+                <h3>Settings</h3>
+            </div>
+            {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <ul class="flash-messages">
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endwith %}
+            <section class="settings">
+                <p>{{ first_name }}</p>
+                <p>{{ user_email }}</p>
+                <div class="mysettings">
+
+                <div class="changepassword">
+                    <p>Change Email</p>
+                <a href="/change_email/{{id}}">
+                    <div class="button-container">    
+                      
+                      <button type="submit" class="custom-button">Change Email</button>
+                    </div>
+                </a>
+                </div>
+                <div class="changepassword">
+                    <p>Change Password</p>
+                <a href="/changepassword/{{id}}">
+                    <div class="button-container">    
+                      
+                      <button type="submit" class="custom-button">Change Password</button>
+                    </div>
+                </a>
+                </div>
+            </div>
+            </section>
         </div>
-        <div class="column">
-          <ul>
-            <li><a href="">Dashboard</a></li>
-            <li><a href="">Expenses</a></li>
-            <li><a href="">History</a></li>
-            <li><a href="">Settings</a></li>
-            <li><a href="">Logout</a></li>
-            <li class="logo">Budg€tApp</li>
-          </ul>
-        </div>
-      </nav>
-      <div class="item" id="settings__section">
-        <h1>Expenses</h1>
-        <p>Profile</p>
-        <div class="pad">
-          <p>First Name</p>
-          <p>Last Name</p>
-          <p>Password</p>
-        </div>
-      </div>
     </div>
-  </body>
+</body>
 </html>

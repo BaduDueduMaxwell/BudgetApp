@@ -434,7 +434,7 @@ def settings(id):
 @app.route('/change_email/<int:id>', methods=['GET', 'POST'])
 def change_email(id):
     if request.method == 'GET':
-        return render_template("change_email.html",id = id)
+        return render_template("changeEmail.html",id = id)
     
     if request.method == "POST":
         error = None
@@ -444,12 +444,11 @@ def change_email(id):
         hashed_password = hash_text(password)
         db_connection = get_db()
         cursor = db_connection.cursor()
-        cursor.execute("SELECT User_Password FROM User WHERE User_Email = ?", (old_email,))
+        cursor.execute("SELECT User_Password FROM User WHERE User_Email = ?", (old_email))
         user_data = cursor.fetchone()
         user_password = user_data[0]
         if hashed_password == user_password:
-            cursor.execute("UPDATE User SET User_Email = ? WHERE User_Email = ?",(new_email,old_email,)) 
-            db_connection.commit()   
+            cursor.execute(f"UPDATE User SET User_Email = {new_email} WHERE User_Email = ?",(old_email))   
             return render_template("settings.html",id = id, error = error)
         else:
             error = "Incorrect password"
@@ -458,23 +457,22 @@ def change_email(id):
 @app.route('/changepassword/<int:id>', methods=['GET', 'POST'])
 def change_password(id):
     if request.method == 'GET':
-        return render_template("changepassword.html",id = id)
+        return render_template("changePassword.html",id = id)
     
     if request.method == "POST":
         error = None
-        old_password = request.form["password"]
-        new_password = request.form["new_password"]
+        old_password = request.form["oldpassword"]
+        new_password = request.form["newpassword"]
         email = request.form["email"]
         old_hashed_password = hash_text(old_password)
         new_hashed_password = hash_text(new_password)
         db_connection = get_db()
         cursor = db_connection.cursor()
-        cursor.execute("SELECT User_Password FROM User WHERE User_Email = ?", (email,))
+        cursor.execute("SELECT User_Password FROM User WHERE User_Email = ?", (email))
         user_data = cursor.fetchone()
         user_password = user_data[0]
         if old_hashed_password == user_password:
-            cursor.execute("UPDATE User SET User_Password = ? WHERE User_Email = ?",(new_hashed_password,email,))
-            db_connection.commit()   
+            cursor.execute(f"UPDATE User SET User_Password = {new_hashed_password} WHERE User_Email = ?",(email))   
             return render_template("settings.html",id = id, error = error)
         else:
             error = "Incorrect password or email"

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Budget App | Expense</title>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Jomhuria' rel='stylesheet'>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/expenses_style.css') }}">
   </head>
   <body>
@@ -14,7 +15,7 @@
                 <li>
                     <a href="#" class="logo">
                         <div class="user-profile">
-                            <img src="{{ url_for('static', filename='images/MyPassportPicture.jpg') }}" alt="User_profile_Pic"/>
+                            <img src="{{ url_for('static', filename='images/MyPassportPicture.jpg') }}" alt=""/>
                             <span class="nav-item">
                                 {{ first_name}}<br>
                             </span>
@@ -44,7 +45,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="/summary/{{id}}">
                         <span class="nav-item menu">
                             Summary
                         </span>
@@ -68,18 +69,18 @@
         </nav>
       <div class="white" id="add__section">
         <div class="title">
-            <h3>Expenses</h3>
+            <h3>Income</h3>
         </div>
         
             <div> 
                 <ul>
-                    <li>James</li>
+                    <li></li>
                 </ul>
-                    <p  class="no_input">No Expenses</p>
+                    <p  class="no_input"></p>
             </div>
             
 <section>
-    <h2>Guestbook Entries</h2>
+    <h2>Income Sources</h2>
     {% with messages = get_flashed_messages() %}
     {% if messages %}
         <ul class="flash-messages">
