@@ -9,7 +9,7 @@
 >
 > The sprint report is a group submission, but one member of your team will write it each week.
 
-**Author:** [_This week's sprint lead_]
+**Author:** [Maxwell Duedu]
 
 ## What did your team accomplish this week?
 
