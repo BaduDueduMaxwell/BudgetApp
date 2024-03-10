@@ -254,12 +254,6 @@ footer a:visited {
 
 /* tablet */
 @media (min-width: 648px) {
-  /* .topnav a {
-    background-color: red;
-    float: left;
-    display: flex;
-  } */
-
   span {
     padding: 10px 150px;
   }
