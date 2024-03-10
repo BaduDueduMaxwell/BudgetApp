@@ -254,6 +254,12 @@ footer a:visited {
 
 /* tablet */
 @media (min-width: 648px) {
+  /* .topnav a {
+    background-color: red;
+    float: left;
+    display: flex;
+  } */
+
   span {
     padding: 10px 150px;
   }
@@ -272,12 +278,8 @@ footer a:visited {
   }
 }
 
-/* lg */
+/* lg screen*/
 @media (min-width: 1024px) {
-  body {
-    /* background-color: red; */
-  }
-
   .container__flex {
     flex-direction: row;
   }
@@ -291,7 +293,6 @@ footer a:visited {
 
   .item img {
     width: 100%;
-    /* height: 50%; */
   }
 
   footer {
