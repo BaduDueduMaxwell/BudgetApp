@@ -280,3 +280,23 @@ canvas {
     overflow: hidden;
     display: flex;
 }
+
+.watermark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: rotate(-45deg);
+    transform-origin: 50% 50%;
+    opacity: 0.5;
+}
+
+.watermark-text {
+    font-size: 5rem; /* Adjust font size as needed */
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.2); /* Adjust text color and opacity as needed */
+}

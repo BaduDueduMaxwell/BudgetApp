@@ -62,7 +62,8 @@ def login():
     user_data = cursor.fetchone()
     user_password = user_data[0]
     user_id = user_data[1]
-    if hashed_password == user_password:
+    if user_data and hashed_password == user_password:
+        session['user_id'] = user_id
         return redirect(url_for('get_dashboard', user_id=user_id))   
     return render_template("login.html")
 
@@ -102,6 +103,7 @@ def income_percentages(user_id):
         incomes = cursor.fetchall()
         for income_id, income_value in incomes:
             percentage = (income_value / total_income) * 100 if total_income else 0
+            percentage = round(percentage,2)
             cursor.execute("UPDATE Incomes SET Percent = ? WHERE id = ?", (percentage, income_id))
         conn.commit()
 
@@ -209,7 +211,6 @@ quotes_dict = {
     "Focus on solving real problems and not on making money. There will be enough takers for your solutions. You will help make lives of some people better, and money will follow.": "Bhavish Aggarwal",
     "Succeeding in business is not just about making money.": "Daniel Snyder"
 }
-
 # Dictionary end
 # Addition
 
@@ -369,5 +370,118 @@ def income(id):
 
     return render_template("income.html", id=id, entries=entries, first_name=first_name, user_email=user_email)
       
+@app.route('/summary/<int:id>', methods=['GET', 'POST'])
+def summary(id):
+    if request.method == 'GET':
+        db_connection = get_db()
+        cursor = db_connection.cursor()
+        cursor.execute("SELECT User_First_Name, User_Last_Name, User_Email FROM User WHERE id = ?", (id,))
+        user_data = cursor.fetchone()
+        first_name = user_data[0]
+        user_email = user_data[2]
+
+        cursor.execute("SELECT User_First_Name, User_Email, Source, Income, Date FROM Incomes JOIN User on Incomes.User_id == User.id WHERE User_id = ?", (id,))
+        incomes = cursor.fetchall()
+
+        cursor.execute("SELECT User_First_Name, User_Email, Category, Expense, Date FROM Expenses JOIN User on Expenses.User_id == User.id WHERE User_id = ?", (id,))
+        entries = cursor.fetchall()
+
+        return render_template("summary.html", id=id, first_name=first_name, incomes=incomes, user_email=user_email, entries=entries)
+
+    if request.method == 'POST':
+        Month = request.form['month']
+        selected_month = Month
+        date_now = datetime.now()
+        Current_Year = date_now.strftime('%Y')
+        date = f"{Month}, {Current_Year}"
+
+        db_connection = get_db()
+        cursor = db_connection.cursor()
+        cursor.execute("SELECT User_First_Name, User_Last_Name, User_Email FROM User WHERE id = ?", (id,))
+        user_data = cursor.fetchone()
+        first_name = user_data[0]
+        user_email = user_data[2]
+        cursor.execute("SELECT User_First_Name, User_Email, Source, Income, Date FROM Incomes JOIN User on Incomes.User_id == User.id WHERE User_id = ? AND MonthAndYear = ?", (id, date))
+        incomes = cursor.fetchall()
+
+        cursor.execute("SELECT User_First_Name, User_Email, Category, Expense, Date FROM Expenses JOIN User on Expenses.User_id == User.id WHERE User_id = ? AND MonthAndYear = ?", (id, date))
+        entries = cursor.fetchall()
+
+        return render_template('summary.html', id=id, entries=entries, first_name=first_name, user_email=user_email, incomes=incomes, date=date,selected_month=selected_month)
+
+@app.route('/settings/<int:id>', methods=['GET', 'POST'])
+def settings(id):
+    if request.method == 'GET':
+        db_connection = get_db()
+        cursor = db_connection.cursor()
+        cursor.execute("SELECT User_First_Name, User_Last_Name, User_Email FROM User WHERE id = ?", (id,))
+        user_data = cursor.fetchone()
+        first_name = user_data[0]
+        user_email = user_data[2]
+        return render_template('settings.html', id=id,first_name=first_name, user_email=user_email)
+    if request.method == 'POST':
+        First_name = request.form['first name']
+        Surname = request.form['surname']
+        email = request.form['email']
+        db_connection = get_db()
+        cursor = db_connection.cursor()
+        cursor.execute('UPDATE User SET User_First_Name = ?, User_Last_Name = ?, User_Email = ? WHERE id = ?', (First_name, Surname, email, id))
+        db_connection.commit()
+        flash('Details added successfully', 'success')
+        return redirect(url_for('settings', id = id))
+
+
+
+@app.route('/change_email/<int:id>', methods=['GET', 'POST'])
+def change_email(id):
+    if request.method == 'GET':
+        return render_template("change_email.html",id = id)
+    
+    if request.method == "POST":
+        error = None
+        old_email = request.form["email"]
+        new_email = request.form["new_email"]
+        password = request.form["password"]
+        hashed_password = hash_text(password)
+        db_connection = get_db()
+        cursor = db_connection.cursor()
+        cursor.execute("SELECT User_Password FROM User WHERE User_Email = ?", (old_email,))
+        user_data = cursor.fetchone()
+        user_password = user_data[0]
+        if hashed_password == user_password:
+            cursor.execute("UPDATE User SET User_Email = ? WHERE User_Email = ?",(new_email,old_email,)) 
+            db_connection.commit()   
+            return render_template("settings.html",id = id, error = error)
+        else:
+            error = "Incorrect password"
+            return render_template("settings.html",id = id, error = error)
+        
+@app.route('/changepassword/<int:id>', methods=['GET', 'POST'])
+def change_password(id):
+    if request.method == 'GET':
+        return render_template("changepassword.html",id = id)
+    
+    if request.method == "POST":
+        error = None
+        old_password = request.form["password"]
+        new_password = request.form["new_password"]
+        email = request.form["email"]
+        old_hashed_password = hash_text(old_password)
+        new_hashed_password = hash_text(new_password)
+        db_connection = get_db()
+        cursor = db_connection.cursor()
+        cursor.execute("SELECT User_Password FROM User WHERE User_Email = ?", (email,))
+        user_data = cursor.fetchone()
+        user_password = user_data[0]
+        if old_hashed_password == user_password:
+            cursor.execute("UPDATE User SET User_Password = ? WHERE User_Email = ?",(new_hashed_password,email,))
+            db_connection.commit()   
+            return render_template("settings.html",id = id, error = error)
+        else:
+            error = "Incorrect password or email"
+            return render_template("settings.html",id = id, error = error)
+
+
+
 if __name__ == '__main__':
     app.run(debug=True)
