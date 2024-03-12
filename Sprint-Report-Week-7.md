@@ -9,7 +9,7 @@
 >
 > The sprint report is a group submission, but one member of your team will write it each week.
 
-**Author:** [_This week's sprint lead_]
+**Author:** [Emmanuel Adzi-Tay]
 
 ## What did your team accomplish this week?
 
@@ -19,20 +19,25 @@ relevant url for the task.
 
 | Who | Link(s) | Task Description |
 | ----- | --------- | ------------------ |
-|     |         |                  |
-|     |         |                  |
+|  Keklem Lawrence   | https://github.com/BaduDueduMaxwell/BudgetApp/tree/Kirk      |   did code review to check the quality of code|
+|   Maxwell Badu     | https://github.com/BaduDueduMaxwell/BudgetApp/tree/responsive_feat|      Worked on about 80% of responsiveness|
+|   Emmanuel Adzi-Tay| https://github.com/BaduDueduMaxwell/BudgetApp/tree/Emmanuel  | did code review to check the quality of code |
+|   James Anokye     | https://github.com/BaduDueduMaxwell/BudgetApp/tree/Goal      | did code review to check the quality of code |
 
 ## What challenges did your team face?
 
 What challenges did your team face? What are you or your teammates blocked on?
 
-* I was blocked on...
+* Frequent power outages and network connectivity issues
 
 ## What is your plan for next week?
 
 What tasks will your team complete? What features will your team build?
 
-* [Teammate] Task 1...
-* [Teammate] Feature 2...
+* Maxwell will be completing the responsive feature of all the apges
+* Lawrence will complete the styling of the settings page
+* James will be merging all the branches and putting the entire work together
+* Emmanuel will be rendering the application
+* Maxwell,James,Emmanuel and Lawrence will be doing a demo video
 
 ## Any other notes or observations from this week?
