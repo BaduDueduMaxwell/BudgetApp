@@ -16,7 +16,7 @@
   <body>
     <header>
       <div class="topnav">
-        <a href="/dashboard/{{user_id}}" class="active logo">Add Expense</a>
+        <a href="/dashboard/{{user_id}}" class="active logo">Expenses</a>
         <div id="myLinks">
           <a href="#" class="logo">
             <div class="user-profile">
@@ -29,6 +29,7 @@
             </div>
           </a>
           <a href="/dashboard/{{id}}"> Dashboard </a>
+
           <a href="/expenses/{{id}}"> Expenses </a>
           <a href="/income/{{id}}">Income</a>
           <a href="/summary/{{id}}">Summary</a>
@@ -40,7 +41,7 @@
         </a>
       </div>
     </header>
-    <div class="container">
+    <main>
       <div class="white" id="add__section">
         <section>
           {% with messages = get_flashed_messages() %} {% if messages %}
@@ -75,7 +76,6 @@
             <div class="AE__form">
               <label for="date">Date:</label>
               <!-- Actual date input field -->
-
               <input type="date" id="date" name="date" required />
             </div>
 
@@ -83,7 +83,8 @@
           </form>
         </section>
       </div>
-    </div>
+    </main>
+
     <script>
       // function for navbar
       const navBar = () => {
