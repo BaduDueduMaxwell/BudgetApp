@@ -14,64 +14,35 @@
     />
   </head>
   <body>
+    <header>
+      <div class="topnav">
+        <a href="/dashboard/{{user_id}}" class="active logo">Add Expense</a>
+        <div id="myLinks">
+          <a href="#" class="logo">
+            <div class="user-profile">
+              <img
+                src="{{ url_for('static', filename='images/MyPassportPicture.jpg') }}"
+                alt=""
+              />
+              <span class="fname"> {{ first_name }}<br /> </span>
+              <span class="email">{{ user_email }}</span>
+            </div>
+          </a>
+          <a href="/dashboard/{{id}}"> Dashboard </a>
+          <a href="/expenses/{{id}}"> Expenses </a>
+          <a href="/income/{{id}}">Income</a>
+          <a href="/summary/{{id}}">Summary</a>
+          <a href="/setting">Settings</a>
+          <a href="{{ url_for('logout') }}">Logout</a>
+        </div>
+        <a href="javascript:void(0);" class="icon" onclick="navBar()">
+          <i class="fa fa-bars"></i>
+        </a>
+      </div>
+    </header>
     <div class="container">
-      <nav class="nav-bar">
-        <ul>
-          <li>
-            <a href="#" class="logo">
-              <div class="user-profile">
-                <img src="static/images/MyPassportPicture.jpg" alt="" />
-                <span class="nav-item"> {{ first_name }}<br /> </span>
-                <span class="email">{{ user_email }}</span>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a href="/dashboard/{{id}}">
-              <span class="nav-item menu"> Dashboard </span>
-            </a>
-          </li>
-          <li>
-            <a href="/expenses/{{id}}">
-              <span class="nav-item active"> Expenses </span>
-            </a>
-          </li>
-          <li>
-            <a href="/income/{{id}}">
-              <span class="nav-item menu"> Income </span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <span class="nav-item menu"> Summary </span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <span class="nav-item menu"> Settings </span>
-            </a>
-          </li>
-          <li>
-            <a href="{{ url_for('logout') }}">
-              <span class="nav-item menu"> Logout </span>
-            </a>
-          </li>
-        </ul>
-      </nav>
       <div class="white" id="add__section">
-        <div class="title">
-          <h3>Expenses</h3>
-        </div>
-
-        <div>
-          <ul>
-            <li>James</li>
-          </ul>
-          <p class="no_input">No Expenses</p>
-        </div>
-
         <section>
-          <h2>Guestbook Entries</h2>
           {% with messages = get_flashed_messages() %} {% if messages %}
           <ul class="flash-messages">
             {% for message in messages %}
@@ -81,28 +52,49 @@
           {% endif %} {% endwith %}
 
           <form method="POST" action="/addexpenses/{{ id }}">
-            <label for="category">Category:</label>
-            <!-- Dropdown for categories -->
-            <select id="category" name="category" required>
-              <option value="food">Food</option>
-              <option value="transportation">Transportation</option>
-              <option value="entertainment">Entertainment</option>
-              <!-- Add more categories as needed -->
-            </select>
+            <div class="AE__form">
+              <label for="category">Category:</label>
+              <!-- Dropdown for categories -->
+              <select id="category" name="category" required>
+                <option value="food" id="text__clr">Select categories</option>
+                <option value="food">Food</option>
+                <option value="transportation">Transportation</option>
+                <option value="entertainment">Entertainment</option>
+                <!-- Add more categories as needed -->
+              </select>
+            </div>
+            <div class="AE__form">
+              <label for="expense">Amount:</label>
+              <input
+                type="number"
+                id="expense"
+                name="expense"
+                placeholder="Amount"
+              />
+            </div>
+            <div class="AE__form">
+              <label for="date">Date:</label>
+              <!-- Actual date input field -->
 
-            <label for="expense">Amount:</label>
-            <input type="number" id="expense" name="expense" required />
+              <input type="date" id="date" name="date" required />
+            </div>
 
-            <label for="date">Date:</label>
-            <!-- Actual date input field -->
-            <input type="date" id="date" name="date" required />
-
-            <button type="submit">Submit</button>
+            <button type="submit" id="btn">Submit</button>
           </form>
-
-          <h2>Submit Your Entry</h2>
         </section>
       </div>
     </div>
+    <script>
+      // function for navbar
+      const navBar = () => {
+        let x = document.getElementById("myLinks");
+
+        if (x.style.display === "block") {
+          x.style.display = "none";
+        } else {
+          x.style.display = "block";
+        }
+      };
+    </script>
   </body>
 </html>

@@ -1,97 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Expenses</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/expenses_style.css') }}">
-</head>
-<body>
-  <nav class="nav-bar">
-    <ul>
-        <li>
-            <a href="#" class="logo">
-                <div class="user-profile">
-                    <img src="{{ url_for('static', filename='images/MyPassportPicture.jpg') }}" alt=""/>
-                    <span class="nav-item">
-                    {{ first_name }}<br>
-                    </span>
-                    <span class="email">{{ user_email }}</span>
-                </div>
-            </a>
-        </li>
-        <li>
-            <a href="/dashboard/{{id}}">
-                <span class="nav-item menu">
-                    Dashboard
-                </span>
-            </a>
-        </li>
-        <li>
-            <a href="/expenses/{{id}}">
-                <span class="nav-item active">
-                    Expenses
-                </span>
-            </a>
-        </li>
-        <li>
-            <a href="/income/{{id}}">
-                <span class="nav-item menu">
-                    Income
-                </span>
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <span class="nav-item menu">
-                    Summary
-                </span>
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <span class="nav-item menu">
-                    Settings
-                </span>
-            </a>
-        </li>
-        <li>
-            <a href="{{ url_for('logout') }}">
-                <span class="nav-item menu">
-                    Logout
-                </span>
-            </a>
-        </li>
-        <li>
-            <a href="/dashboard" class="applogo">
-                <span class="nav-item">
-                    BudgetApp
-                </span>
-            </a>
-        </li>
-    </ul>
-</nav>
-<section>
-  <div class="white" id="add__section">
-    <div class="title">
-        <h2>Expenses</h2>
-    </div>
-    <ul>
-      {% for entry in entries %}
-      <li id="entries">
-        <strong>Category: </strong>{{ entry[2] }} <br>
-        <strong>Amount: </strong>{{ entry[3] }} <br>
-        <strong>Date: </strong>{{ entry[4] }}</li>
-        {% endfor %}
-      </ul>
-      <a href="/addexpenses/{{id}}">
-        <div class="button-container">    
-          
-          <button type="submit" class="custom-button">Add Expense</button>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/expenses_style.css') }}"
+    />
+  </head>
+  <body>
+    <header>
+      <div class="topnav">
+        <a href="/dashboard/{{user_id}}" class="active logo">Expenses</a>
+        <div id="myLinks">
+          <a href="#" class="logo">
+            <div class="user-profile">
+              <img
+                src="{{ url_for('static', filename='images/MyPassportPicture.jpg') }}"
+                alt=""
+              />
+              <span class="fname"> {{ first_name }}<br /> </span>
+              <span class="email">{{ user_email }}</span>
+            </div>
+          </a>
+          <a href="/dashboard/{{id}}"> Dashboard </a>
+
+          <a href="/expenses/{{id}}"> Expenses </a>
+          <a href="/income/{{id}}">Income</a>
+          <a href="/summary/{{id}}">Summary</a>
+          <a href="/setting">Settings</a>
+          <a href="{{ url_for('logout') }}">Logout</a>
         </div>
-      </a>
+        <a href="javascript:void(0);" class="icon" onclick="navBar()">
+          <i class="fa fa-bars"></i>
+        </a>
+      </div>
+    </header>
+    <main>
+      <div class="expense__section" id="add__section">
+        <ul>
+          {% for entry in entries %}
+          <li id="entries">
+            <strong>Category: </strong>{{ entry[2] }} <br />
+            <strong>Amount: </strong>{{ entry[3] }} <br />
+            <strong>Date: </strong>{{ entry[4] }}
+          </li>
+          {% endfor %}
+        </ul>
+        <a href="/addexpenses/{{id}}">
+          <button type="submit">Add Expense</button>
+        </a>
+      </div>
+    </main>
+    <div class="container">
+      <div class="item"></div>
     </div>
-  </div>
-    </section>
-</body>
+    <script>
+      // function for navbar
+      const navBar = () => {
+        let x = document.getElementById("myLinks");
+
+        if (x.style.display === "block") {
+          x.style.display = "none";
+        } else {
+          x.style.display = "block";
+        }
+      };
+    </script>
+  </body>
 </html>
