@@ -55,16 +55,21 @@ def login():
     password = request.form["password"]
     hashed_password = hash_text(password)
     email = [email]
-
+    error = None
     db_connection = get_db()
     cursor = db_connection.cursor()
     cursor.execute("SELECT User_Password, id FROM User WHERE User_Email = ?", (email))
     user_data = cursor.fetchone()
-    user_password = user_data[0]
-    user_id = user_data[1]
-    if hashed_password == user_password:
-        return redirect(url_for('get_dashboard', user_id=user_id))   
-    return render_template("login.html")
+    if user_data:
+        user_password = user_data[0]
+        user_id = user_data[1]
+        if hashed_password == user_password:
+            return redirect(url_for('get_dashboard', user_id=user_id))
+        else:
+            error = "Incorrect password/email"
+            return render_template("login.html",error = error)
+    error = "You don't have an account.Create one" 
+    return render_template("login.html",error = error)
 
 def calculate_total_expenses(user_id):
     db_connection = get_db()
