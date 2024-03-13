@@ -19,4 +19,21 @@ window.onclick = function (event) {
 };
 
 
-// Pop up...
+
+document.addEventListener('DOMContentLoaded', function () {
+  const menuIcon = document.querySelector('.menu-icon');
+  const navItems = document.querySelector('.nav-list');
+  const listItems = document.querySelectorAll('.nav-list li');
+
+  menuIcon.addEventListener('click', function () {
+      navItems.classList.toggle('show');
+  });
+
+  
+
+  listItems.forEach(function (item) {
+      item.addEventListener('click', function () {
+          menuIcon.click(); // Simulate a click on the menu icon to close the menu
+      });
+  });
+});
