@@ -1,21 +1,23 @@
 <!DOCTYPE html>
 <html lang="en-US">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Budget App | Settings</title>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Jomhuria' rel='stylesheet'>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/settings.css') }}">
+    
     <link rel="stylesheet" href="{{ url_for('static', filename='css/expenses_style.css') }}">
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
         <nav class="nav-bar">
-            <ul>
-                <li>
-                    <a href="#" class="logo">
-                        <div class="user-profile">
-                            <img src="{{ url_for('static', filename='images/MyPassportPicture.jpg') }}" alt=""/>
+          <ul>
+            <li>
+              <a href="#" class="logo">
+                <div class="user-profile">
+                  <img src="{{ url_for('static', filename='images/MyPassportPicture.jpg') }}" alt=""/>
                             <span class="nav-item">
                                 {{ first_name }}<br>
                             </span>
@@ -68,44 +70,48 @@
             </ul>
         </nav>
         <div class="white" id="add__section">
-            <div class="title">
-                <h3>Settings</h3>
+          <div class="title">
+            <h3>Settings</h3>
+          </div>
+          <section class="settings">
+            <!-- <p>{{ first_name }}</p>
+            <p>{{ user_email }}</p> -->
+            <div class="profile">
+              <div class="line"></div>
+              <div style="margin-right: 10px;">
+                <h5>Profile</h5>
+              </div>
+              <div class="line"></div>
             </div>
-            {% with messages = get_flashed_messages() %}
-    {% if messages %}
-        <ul class="flash-messages">
-            {% for message in messages %}
-                <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-{% endwith %}
-            <section class="settings">
-                <p>{{ first_name }}</p>
-                <p>{{ user_email }}</p>
-                <div class="mysettings">
-
-                <div class="changepassword">
-                    <p>Change Email</p>
+            <div class="mysettings">
+              <div class="changepassword">
+                <p>Change Email</p>
                 <a href="/change_email/{{id}}">
-                    <div class="button-container">    
-                      
-                      <button type="submit" class="custom-button">Change Email</button>
-                    </div>
+                  <div class="button-container">   
+                    <button type="submit" class="custom-button">Change</button>
+                  </div>
                 </a>
-                </div>
-                <div class="changepassword">
-                    <p>Change Password</p>
+              </div>
+              <div class="changepassword">
+                <p>Change Password</p>
                 <a href="/changepassword/{{id}}">
-                    <div class="button-container">    
-                      
-                      <button type="submit" class="custom-button">Change Password</button>
-                    </div>
+                  <div class="button-container">
+                    <button type="submit" class="custom-button">Change</button>
+                  </div>
                 </a>
-                </div>
+              </div>
             </div>
-            </section>
+          </section>
+          {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul class="flash-messages">
+                    {% for message in messages %}
+                      <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+          {% endwith %}
         </div>
     </div>
-</body>
+  </body>
 </html>

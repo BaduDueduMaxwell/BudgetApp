@@ -84,6 +84,7 @@ def income_percentages(user_id):
         incomes = cursor.fetchall()
         for income_id, income_value in incomes:
             percentage = (income_value / total_income) * 100 if total_income else 0
+            percentage = round(percentage, 2)
             cursor.execute("UPDATE Incomes SET Percent = ? WHERE id = ?", (percentage, income_id))
         conn.commit()
 
@@ -396,7 +397,6 @@ def summary(id):
         date_now = datetime.now()
         Current_Year = date_now.strftime('%Y')
         date = f"{Month}, {Current_Year}"
-
         db_connection = get_db()
         cursor = db_connection.cursor()
         cursor.execute("SELECT User_First_Name, User_Last_Name, User_Email FROM User WHERE id = ?", (id,))

@@ -10,9 +10,7 @@
 body {
   background-color: #051b6b;
 }
-.active{
-  color: white;
-}
+
 nav {
   position: fixed;
   top: 0;
@@ -43,7 +41,6 @@ nav {
 .email {
   font-size: 16px;
   margin-left: 0;
-  color: rgb(255, 255, 255,0.6);
 }
 
 .user-profile {
@@ -54,14 +51,10 @@ nav {
   align-items: center;
   color: white;
 }
-.user-profile .nav-item{
-  font-family: "Jomhuria";
-  font-size: 44px;
-}
 
 a {
   position: relative;
-  color: rgb(255, 255, 255,0.6);
+  color: white;
   font-size: 16px;
   display: block;
   width: 250px;
@@ -97,23 +90,19 @@ a {
 }
 #entries {
   margin-bottom: 20px;
-  border: 1px solid #bdd7ea; /* Light blue border for entry list */
+  border: 1px solid #bdd7ea; 
   border: 20px;
   padding: 15px;
   border-radius: 8px;
-  background-color: #f0f5fb; 
-  box-shadow:  0 1px 1px rgba(0, 0, 0, 0.1),  
-  0 2px 2px rgba(0, 0, 0, 0.1),  
-  0 4px 4px rgba(0, 0, 0, 0.1),  
-  0 8px 8px rgba(0, 0, 0, 0.1),  
-  0 16px 16px rgba(0, 0, 0, 0.1);;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 ul {
   list-style: none;
   padding: 0;
 }
 button {
-  background-color: #0056b3; /* Darker blue button color */
+  background-color: #0056b3; 
   color: #fff;
   padding: 12px 20px;
   border: none;
@@ -122,17 +111,10 @@ button {
 }
 
 button:hover {
-  background-color: #004080; /* Darker blue on hover */
-}
-.title{
-  padding-bottom: 22px;
+  background-color: #004080;
 }
 .title h2 {
   color: #004080; 
+  border-bottom: 2px solid #004080;
   padding-bottom: 10px;
-}
-/*Settings*/
-.settings{
-  display: flex;
-  flex-direction: column;
 }
