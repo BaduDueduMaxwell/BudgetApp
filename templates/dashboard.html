@@ -11,11 +11,11 @@
     </head>
     <body>
         <nav class="nav-bar">
-            <ul >
+            <ul class="nav-list">
                 <li>
                     <a href="#" class="logo">
                         <div class="user-profile">
-                            <img src="{{ url_for('static', filename='images/MyPassportPicture.jpg') }}" alt=""/>
+                            <img src="{{ url_for('static', filename='images/MyPassportPicture.jpg') }}" alt="User_profile_Pic"/>
                             <span class="nav-item">
                             {{ first_name }}<br>
                             </span>
@@ -59,7 +59,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="/logout">
                         <span class="nav-item menu">
                             Logout
                         </span>
@@ -75,29 +75,30 @@
             </ul>
         </nav>
         <section class="expenses">
+            <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
             <div class="title">
                 <h3>Dashboard</h3>
             </div>
             <div class="dash intr">
                 <h4>Hi,  {{ first_name }}</h4>
-                <p>{{ quote }}</p>
-                <p class="author">~{{ author }}</p>
+                <p style="padding-bottom:5px; padding-top:0px">{{ quote }}</p>
+                <p style="padding-top:0px;">~{{ author }}</p>
             </div>
             <div class="dash cat detail">
                 <div class="dash income">
-                    <h6>Total Income For {{Month}}</h6>
-                    <p>${{ total_income if total_income else '0' }}</p>
+                    <h6 style="text-align: left;">Total Income</h6>
+                    <p style="text-align: left;">${{ total_income if total_income else '0' }}</p>
                 </div>
                 <div class="dash income">
-                    <h6>Total Expenses For {{Month}}</h6>
-                    <p>${{ total_expenses if total_expenses else '0' }}</p>
+                    <h6 style="text-align: left;">Total Expenses</h6>
+                    <p style="text-align: left;">${{ total_expenses if total_expenses else '0' }}</p>
                 </div>
                 <div class="dash income">
                     <div>
-                        <h6>Savings For {{Month}}</h6>
-                        <span>{{ percentage_savings if percentage_savings else '--%' }}</span>
+                        <h6>Savings</h6>
+                        <span>{{ percentage_savings if percentage_savings else '--' }}%</span>
                     </div>
-                    <p>${{ savings if savings else '0' }}</p>
+                    <p style="text-align: left;">${{ savings if savings else '0' }}</p>
                 </div>
             </div>
             <div>
@@ -116,8 +117,8 @@
                     <canvas id="lineChart"></canvas>
                 </div>
             </div>
-             <!-- Addition -->
-             <div class="dash budget b">
+            <!-- Addition -->
+            <div class="dash budget b">
                 <div>
                     <h6>Income</h6>
                 </div> 
@@ -142,7 +143,6 @@
                 </div>
             </div>
         </div>
-            
         </section>
         <script>
         function updatePieChart(data) {
