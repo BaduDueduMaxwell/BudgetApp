@@ -20,9 +20,6 @@ DATABASE = "database.db"
 app = Flask(__name__)
 app.secret_key = 'your_unique_secret_key_here'
 
-def get_db():
-    connection = sqlite3.connect(DATABASE)
-    return connection  
 
 @app.route("/")
 def welcome():
